@@ -26,7 +26,13 @@
                         <li class="text-white">
                           Μητρώο Εκπαιδευτών
                           <ul class="ps-3 text-base">
-                            <li class="text-yellow-400">Προβολή Εκπαιδευτών</li>
+                            <li>
+                              <a
+                                class="hover:text-yellow-400 block"
+                                href="${pageContext.request.contextPath}/school-app/teachers/view"
+                                >Προβολή Εκπαιδευτών</a
+                              >
+                            </li>
                             <c:if test="${sessionScope.role == 'ADMIN'}">
                             <li>
                               <a
