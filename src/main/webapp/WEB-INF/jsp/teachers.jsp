@@ -10,7 +10,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Coding Factory - Central Service</title>
+    <title>Coding Factory - Μητρώο Καθηγητών</title>
   </head>
   <body>
     <%@ include file="/WEB-INF/jsp/header.jsp" %>
@@ -31,7 +31,7 @@
                         <li>
                           <a
                             class="hover:text-yellow-400 block"
-                            href="./teacher-insert.html"
+                            href="${pageContext.request.contextPath}/school-app/teachers/insert"
                             >Εισαγωγή Εκπαιδευτή</a
                           >
                         </li>
@@ -127,7 +127,7 @@
                 <div
                   class="lg:hidden text-center my-3 text-[#762124] hover:text-[#5c1a1a]"
                 >
-                  <a href="${pageContext.request.contextPath}/school-app/dashboard"
+                  <a class="hover:underline" href="${pageContext.request.contextPath}/school-app/dashboard"
                     >Επιστροφή στην Αρχική σελίδα</a
                   >
                 </div>
