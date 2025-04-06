@@ -133,7 +133,16 @@
                 </div>
               </main>
             </div>
-                <script src="${pageContext.request.contextPath}/js/teachers.js"></script>
+            <div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-2">
+              <div class="bg-white rounded-xl p-6 shadow-lg text-center w-80">
+                <p class="text-lg text-gray-800 mb-4">Είστε σίγουροι ότι θέλετε να διαγράψετε τον εκπαιδευτή;</p>
+                <div class="flex justify-center gap-4">
+                  <button id="confirmDeleteBtn" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Διαγραφή</button>
+                  <button id="cancelDeleteBtn" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">Άκυρο</button>
+                </div>
+              </div>
+            </div>
+    <script src="${pageContext.request.contextPath}/js/teachers.js"></script>
     <%@ include file="/WEB-INF/jsp/footer.jsp" %>
 
   </body>
