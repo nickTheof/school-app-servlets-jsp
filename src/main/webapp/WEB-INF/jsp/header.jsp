@@ -36,7 +36,7 @@ taglib prefix="c" uri="jakarta.tags.core" %>
               class="block flex items-center justify-center lg:space-x-4 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white focus:rounded-md group"
             >
               <span
-                class="hidden lg:block text-white font-serif font-thin text-lg underline underline-offset-4 group-hover:decoration-4"
+                class="hidden lg:block text-white font-serif font-thin text-lg underline underline-offset-[6px] group-hover:decoration-2"
                 >${sessionScope.username}</span
               >
               <span
