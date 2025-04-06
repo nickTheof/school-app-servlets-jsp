@@ -1,0 +1,15 @@
+package gr.aueb.cf.schoolapp.filter;
+
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+
+import java.io.IOException;
+
+public class GRFilter implements Filter {
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        HttpServletRequest req = (HttpServletRequest) servletRequest;
+        req.setCharacterEncoding("UTF-8");
+        filterChain.doFilter(req, servletResponse);
+    }
+}
