@@ -26,7 +26,13 @@
                    <li class="text-white">
                      Μητρώο Εκπαιδευτών
                      <ul class="ps-3 text-base">
-                       <li class="text-yellow-400">Προβολή Εκπαιδευτών</li>
+                       <li>
+                        <a
+                          class="hover:text-yellow-400 block"
+                          href="${pageContext.request.contextPath}/school-app/teachers/view"
+                          >Προβολή Εκπαιδευτών</a
+                        >
+                      </li>
                        <c:if test="${sessionScope.role == 'ADMIN'}">
                        <li>
                          <a
@@ -86,7 +92,11 @@
                      </div>
                      <div class="flex flex-col">
                        <span class="font-semibold text-[#762124]">Πόλη</span>
-                       <span>${requestScope.teacher.cityId}</span>
+                       <c:forEach var="city" items="${requestScope.cities}">
+                            <c:if test="${requestScope.teacher.cityId == city.id}">
+                                <span>${city.name}</span>
+                            </c:if>
+                       </c:forEach>
                      </div>
                      <div class="flex flex-col">
                        <span class="font-semibold text-[#762124]">ΤΚ</span>

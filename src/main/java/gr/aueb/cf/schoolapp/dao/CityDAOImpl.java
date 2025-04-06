@@ -82,7 +82,7 @@ public class CityDAOImpl implements ICityDAO {
 
     @Override
     public List<City> getAll() throws CityDaoException {
-        String sql = "SELECT * FROM cities";
+        String sql = "SELECT * FROM cities order by name asc";
         List<City> cities = new ArrayList<>();
         ResultSet rs;
         City city;
