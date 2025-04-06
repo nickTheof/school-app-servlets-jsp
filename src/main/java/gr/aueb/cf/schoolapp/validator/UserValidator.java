@@ -1,7 +1,7 @@
 package gr.aueb.cf.schoolapp.validator;
 
-import gr.aueb.cf.schoolapp.dao.IUserDao;
-import gr.aueb.cf.schoolapp.dao.UserDaoImpl;
+import gr.aueb.cf.schoolapp.dao.IUserDAO;
+import gr.aueb.cf.schoolapp.dao.UserDAOImpl;
 import gr.aueb.cf.schoolapp.dto.BaseUserDTO;
 import gr.aueb.cf.schoolapp.exceptions.UserDaoException;
 import gr.aueb.cf.schoolapp.service.IUserService;
@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserValidator {
-    private static final IUserDao userDao = new UserDaoImpl();
+    private static final IUserDAO userDao = new UserDAOImpl();
     private static final IUserService userService = new UserServiceImpl(userDao);
 
     private UserValidator() {

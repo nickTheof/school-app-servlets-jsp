@@ -1,8 +1,8 @@
 package gr.aueb.cf.schoolapp.controller;
 
 import gr.aueb.cf.schoolapp.authentication.AuthenticationProvider;
-import gr.aueb.cf.schoolapp.dao.IUserDao;
-import gr.aueb.cf.schoolapp.dao.UserDaoImpl;
+import gr.aueb.cf.schoolapp.dao.IUserDAO;
+import gr.aueb.cf.schoolapp.dao.UserDAOImpl;
 import gr.aueb.cf.schoolapp.dto.LoginUserDTO;
 import gr.aueb.cf.schoolapp.exceptions.UserDaoException;
 import gr.aueb.cf.schoolapp.exceptions.UserNotFoundException;
@@ -19,7 +19,7 @@ import java.io.IOException;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
-    private final IUserDao userDao = new UserDaoImpl();
+    private final IUserDAO userDao = new UserDAOImpl();
     private final IUserService userService = new UserServiceImpl(userDao);
 
 

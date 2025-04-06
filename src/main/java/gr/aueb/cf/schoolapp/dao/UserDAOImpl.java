@@ -8,7 +8,7 @@ import gr.aueb.cf.schoolapp.util.DBUtil;
 
 import java.sql.*;
 
-public class UserDaoImpl implements IUserDao{
+public class UserDAOImpl implements IUserDAO {
     @Override
     public User insert(User user) throws UserDaoException {
         String sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";

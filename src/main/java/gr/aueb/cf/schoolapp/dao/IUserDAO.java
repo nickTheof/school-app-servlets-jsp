@@ -3,7 +3,7 @@ package gr.aueb.cf.schoolapp.dao;
 import gr.aueb.cf.schoolapp.exceptions.UserDaoException;
 import gr.aueb.cf.schoolapp.model.User;
 
-public interface IUserDao {
+public interface IUserDAO {
     User insert(User user) throws UserDaoException;
     User getById(Long id) throws UserDaoException;
     User getByUsername(String username) throws UserDaoException;

@@ -1,12 +1,11 @@
 package gr.aueb.cf.schoolapp.controller;
 
-import gr.aueb.cf.schoolapp.dao.IUserDao;
-import gr.aueb.cf.schoolapp.dao.UserDaoImpl;
+import gr.aueb.cf.schoolapp.dao.IUserDAO;
+import gr.aueb.cf.schoolapp.dao.UserDAOImpl;
 import gr.aueb.cf.schoolapp.dto.InsertUserDTO;
 import gr.aueb.cf.schoolapp.dto.UserReadOnlyDTO;
 import gr.aueb.cf.schoolapp.exceptions.UserAlreadyExistsException;
 import gr.aueb.cf.schoolapp.exceptions.UserDaoException;
-import gr.aueb.cf.schoolapp.mapper.Mapper;
 import gr.aueb.cf.schoolapp.model.User;
 import gr.aueb.cf.schoolapp.service.IUserService;
 import gr.aueb.cf.schoolapp.service.UserServiceImpl;
@@ -24,7 +23,7 @@ import java.util.Map;
 @WebServlet("/register")
 public class RegisterUserController extends HttpServlet {
 
-    private final IUserDao userDAO = new UserDaoImpl();
+    private final IUserDAO userDAO = new UserDAOImpl();
     private final IUserService userService = new UserServiceImpl(userDAO);
 
     @Override

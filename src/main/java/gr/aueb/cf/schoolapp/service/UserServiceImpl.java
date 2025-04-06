@@ -1,6 +1,6 @@
 package gr.aueb.cf.schoolapp.service;
 
-import gr.aueb.cf.schoolapp.dao.IUserDao;
+import gr.aueb.cf.schoolapp.dao.IUserDAO;
 import gr.aueb.cf.schoolapp.dto.InsertUserDTO;
 import gr.aueb.cf.schoolapp.dto.LoginUserDTO;
 import gr.aueb.cf.schoolapp.dto.UserReadOnlyDTO;
@@ -11,9 +11,9 @@ import gr.aueb.cf.schoolapp.mapper.Mapper;
 import gr.aueb.cf.schoolapp.model.User;
 
 public class UserServiceImpl implements IUserService{
-    private final IUserDao userDao;
+    private final IUserDAO userDao;
 
-    public UserServiceImpl(IUserDao userDao) {
+    public UserServiceImpl(IUserDAO userDao) {
         this.userDao = userDao;
     }
 
