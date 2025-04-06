@@ -19,7 +19,7 @@
                 <nav class="text-lg">
                   <ul class="flex flex-col mt-[30px] ps-5 gap-y-2">
                     <li>
-                      <a class="text-white text-lg hover:text-yellow-400 block" href="#"
+                      <a class="text-white text-lg hover:text-yellow-400 block" href="${pageContext.request.contextPath}/school-app/dashboard"
                         >Αρχική</a
                       >
                     </li>
@@ -27,6 +27,7 @@
                       Μητρώο Εκπαιδευτών
                       <ul class="ps-3 text-base">
                         <li class="text-yellow-400">Προβολή Εκπαιδευτών</li>
+                        <c:if test="${sessionScope.role == 'ADMIN'}">
                         <li>
                           <a
                             class="hover:text-yellow-400 block"
@@ -34,6 +35,7 @@
                             >Εισαγωγή Εκπαιδευτή</a
                           >
                         </li>
+                        </c:if>
                       </ul>
                     </li>
                   </ul>
@@ -89,16 +91,17 @@
                     <tbody id="table-body" class="bg-white divide-y">
                       <c:forEach var = "teacher" items = "${requestScope.teachers}">
                       <tr>
-                        <td class="p-3 text-[#428BCA]">${teacher.id}</td>
-                        <td class="p-3 text-[#428BCA]">${teacher.firstname}</td>
-                        <td class="p-3 text-[#428BCA]">${teacher.lastname}</td>
+                        <td class="p-3 text-stone-600">${teacher.id}</td>
+                        <td class="p-3 text-stone-600">${teacher.firstname}</td>
+                        <td class="p-3 text-stone-600">${teacher.lastname}</td>
                         <td class="p-3 text-center flex justify-center gap-3">
                           <a
-                            href="${pageContext.request.contextPath}/school-app/teachers/view?id=${teacher.id}"
+                            href="${pageContext.request.contextPath}/school-app/teachers/view/teacher?id=${teacher.id}"
                             class="text-blue-500"
                           >
                             <i class="fa-solid fa-eye"></i>
                           </a>
+                          <c:if test="${sessionScope.role == 'ADMIN'}">
                           <a
                             href="${pageContext.request.contextPath}/school-app/teachers/update?id=${teacher.id}"
                             class="text-green-500"
@@ -111,11 +114,15 @@
                           >
                             <i class="fa-regular fa-trash-can"></i>
                           </a>
+                          </c:if>
                         </td>
                       </tr>
                      </c:forEach>
                     </tbody>
                   </table>
+                </div>
+                <div class="text-center my-3 text-red-600">
+                    ${requestScope.message}
                 </div>
                 <div
                   class="lg:hidden text-center my-3 text-[#762124] hover:text-[#5c1a1a]"

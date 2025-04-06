@@ -13,7 +13,7 @@ import java.util.UUID;
 public class TeacherDAOImpl implements ITeacherDAO {
     @Override
     public Teacher insert(Teacher teacher) throws TeacherDaoException {
-        String sql = "INSERT INTO teachers (firstname, lastname, vat, father_name, phone_num," +
+        String sql = "INSERT INTO teachers (firstname, lastname, vat, fathername, phone_num," +
                 " email, street, street_num, city_id, zipcode, uuid, created_at, updated_at)" +
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Teacher insertedTeacher = null;
@@ -50,7 +50,7 @@ public class TeacherDAOImpl implements ITeacherDAO {
 
     @Override
     public Teacher update(Teacher teacher) throws TeacherDaoException {
-        String sql = "UPDATE teachers SET firstname = ?, lastname = ?, vat = ?, father_name = ?, phone_num = ?," +
+        String sql = "UPDATE teachers SET firstname = ?, lastname = ?, vat = ?, fathername = ?, phone_num = ?," +
                 " email = ?, street = ?, street_num = ?, zipcode = ?, city_id = ?," +
                 " updated_at = ? WHERE id = ?";
         Teacher updatedTeacher;
@@ -103,7 +103,7 @@ public class TeacherDAOImpl implements ITeacherDAO {
             rs = ps.executeQuery();
             if (rs.next()) {
                 teacher = new Teacher(rs.getLong("id"), rs.getString("firstname"), rs.getString("lastname"),
-                        rs.getString("vat"), rs.getString("father_name"), rs.getString("phone_num"),
+                        rs.getString("vat"), rs.getString("fathername"), rs.getString("phone_num"),
                         rs.getString("email"), rs.getString("street"), rs.getString("street_num"),
                         rs.getInt("city_id"), rs.getString("zipcode"),rs.getString("uuid"), rs.getTimestamp("created_at").toLocalDateTime(),
                         rs.getTimestamp("updated_at").toLocalDateTime());
@@ -125,7 +125,7 @@ public class TeacherDAOImpl implements ITeacherDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 teacher = new Teacher(rs.getLong("id"), rs.getString("firstname"), rs.getString("lastname"),
-                        rs.getString("vat"), rs.getString("father_name"), rs.getString("phone_num"),
+                        rs.getString("vat"), rs.getString("fathername"), rs.getString("phone_num"),
                         rs.getString("email"), rs.getString("street"), rs.getString("street_num"),
                         rs.getInt("city_id"), rs.getString("zipcode"),rs.getString("uuid"), rs.getTimestamp("created_at").toLocalDateTime(),
                         rs.getTimestamp("updated_at").toLocalDateTime());
@@ -148,7 +148,7 @@ public class TeacherDAOImpl implements ITeacherDAO {
             rs = ps.executeQuery();
             if (rs.next()) {
                 teacher = new Teacher(rs.getLong("id"), rs.getString("firstname"), rs.getString("lastname"),
-                        rs.getString("vat"), rs.getString("father_name"), rs.getString("phone_num"),
+                        rs.getString("vat"), rs.getString("fathername"), rs.getString("phone_num"),
                         rs.getString("email"), rs.getString("street"), rs.getString("street_num"),
                         rs.getInt("city_id"), rs.getString("zipcode"),rs.getString("uuid"), rs.getTimestamp("created_at").toLocalDateTime(),
                         rs.getTimestamp("updated_at").toLocalDateTime());
@@ -170,7 +170,7 @@ public class TeacherDAOImpl implements ITeacherDAO {
             rs = ps.executeQuery();
             if (rs.next()) {
                 teacher = new Teacher(rs.getLong("id"), rs.getString("firstname"), rs.getString("lastname"),
-                        rs.getString("vat"), rs.getString("father_name"), rs.getString("phone_num"),
+                        rs.getString("vat"), rs.getString("fathername"), rs.getString("phone_num"),
                         rs.getString("email"), rs.getString("street"), rs.getString("street_num"),
                         rs.getInt("city_id"), rs.getString("zipcode"),rs.getString("uuid"), rs.getTimestamp("created_at").toLocalDateTime(),
                         rs.getTimestamp("updated_at").toLocalDateTime());
@@ -194,7 +194,7 @@ public class TeacherDAOImpl implements ITeacherDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 teacher = new Teacher(rs.getLong("id"), rs.getString("firstname"), rs.getString("lastname"),
-                        rs.getString("vat"), rs.getString("father_name"), rs.getString("phone_num"),
+                        rs.getString("vat"), rs.getString("fathername"), rs.getString("phone_num"),
                         rs.getString("email"), rs.getString("street"), rs.getString("street_num"),
                         rs.getInt("city_id"), rs.getString("zipcode"),rs.getString("uuid"), rs.getTimestamp("created_at").toLocalDateTime(),
                         rs.getTimestamp("updated_at").toLocalDateTime());
@@ -202,6 +202,7 @@ public class TeacherDAOImpl implements ITeacherDAO {
             }
             return filteredTeachers;
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new TeacherDaoException("SQL Error. Error getting filtered teachers.");
         }
     }
