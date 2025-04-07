@@ -42,7 +42,7 @@ public class LoginController extends HttpServlet {
             principleIsAuthenticated = AuthenticationProvider.authenticate(userDTO);
 
             if (!principleIsAuthenticated) {
-                req.setAttribute("error", "Invalid Credentials");
+                req.setAttribute("error", "Λανθασμένο email ή Κωδικός Εισόδου");
                 req.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(req, resp);
                 return;
             }
@@ -63,7 +63,7 @@ public class LoginController extends HttpServlet {
             // PRG Design Pattern
             resp.sendRedirect(req.getContextPath() + "/school-app/dashboard");
         } catch (UserDaoException | UserNotFoundException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             req.setAttribute("error", e.getMessage());
             req.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(req, resp);
         }
