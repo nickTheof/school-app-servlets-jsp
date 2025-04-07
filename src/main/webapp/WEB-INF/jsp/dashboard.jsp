@@ -67,7 +67,7 @@
                   <a
                     type="button"
                     class="px-[40px] py-[10px] bg-[#762124] hover:bg-[#5c1a1a] text-white text-md rounded-md"
-                    href="${pageContext.request.contextPath}/school-app/insert-teacher"
+                    href="${pageContext.request.contextPath}/school-app/teachers/insert"
                   >
                     Συνέχεια
                   </a>

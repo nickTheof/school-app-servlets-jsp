@@ -17,7 +17,7 @@
           </div>
           <div class="mt-[60px] text-center">
             <a
-              class="px-[40px] py-[15px] bg-green-600 hover:bg-green-700 text-white text-md rounded-md"
+              class="px-[40px] py-[15px] bg-[#762124] hover:bg-[#5c1a1a] text-white text-md rounded-md"
               type="button"
               href="${pageContext.request.contextPath}/login"
               >Είσοδος</a

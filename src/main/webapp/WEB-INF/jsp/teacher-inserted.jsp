@@ -10,7 +10,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Coding Factory - Διαγραφή Καθηγητή</title>
+    <title>Coding Factory - Επιτυχής Εισαγωγή</title>
   </head>
   <body>
     <%@ include file="/WEB-INF/jsp/header.jsp" %>
@@ -49,9 +49,9 @@
                   </aside>
                   <main class="w-full lg:w-4/5">
                     <div class="text-center text-black font-thin text-2xl my-[30px]">
-                      Διαγραφή Εκπαιδευτή
+                      Εισαγωγή Καθηγητή
                     </div>
-                  <c:if test="${requestScope.id != null}" >
+                  <c:if test="${ not empty sessionScope.teacherInfo}" >
                   <div
                     class="bg-green-100 border border-green-400 text-green-900 rounded-lg shadow-md max-w-xl w-full p-6 space-y-4 mx-auto"
                   >
@@ -61,24 +61,31 @@
                       ></span>
 
                       <h2 class="text-xl md:text-2xl font-serif font-medium text-center">
-                        Επιτυχής Διαγραφή
+                        Επιτυχής Εισαγωγή Καθηγητή
                       </h2>
                     </div>
 
                     <p class="text-center text-base md:text-lg">
-                      Ο Εκπαιδευτής με ID:
-                      <strong class="font-semibold"
-                        >${requestScope.id}</strong
-                      >
-                      διαγράφηκε επιτυχώς.
+                      Ο Εκπαιδευτής καταχωρήθηκε επιτυχώς.
                     </p>
+                    <p class="text-center text-base md:text-lg">UUID: ${sessionScope.teacherInfo.uuid}</p>
+                    <p class="text-center text-base md:text-lg">Επώνυμο: ${sessionScope.teacherInfo.lastname}</p>
+                    <p class="text-center text-base md:text-lg">Όνομα: ${sessionScope.teacherInfo.firstname}</p>
                   </div>
                   </c:if>
-                  <c:if test="${requestScope.error != null}">
-                  
-                   <div class="text-red-600 text-xl font-thin text-center">
-                      ${requestScope.error}
-                   </div>
+                  <c:if test="${empty sessionScope.teacherInfo}">
+
+                   <div class="flex justify-center my-6">
+                       <div class="w-[90%] md:w-2/3 lg:w-1/2 bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-lg shadow-md flex items-center justify-center gap-3">
+                         <svg class="w-6 h-6 text-red-500 mt-1 shrink-0" fill="none" stroke="currentColor" stroke-width="2"
+                              viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                           <path d="M12 9v2m0 4h.01M12 5C7.58 5 4 8.58 4 13s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8z"/>
+                         </svg>
+                         <div class="text-lg">
+                           <strong class="block font-semibold">Σφάλμα!</strong>
+                         </div>
+                       </div>
+                     </div>
                    </c:if>
 
                   <div

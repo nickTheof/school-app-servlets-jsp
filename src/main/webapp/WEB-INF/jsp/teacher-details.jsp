@@ -53,9 +53,20 @@
                    <h2 class="text-center text-2xl font-serif font-semibold text-[#762124] mb-6">
                      Στοιχεία Εκπαιδευτή
                    </h2>
-                   <div class="text-center my-3 text-red-600">
-                       ${requestScope.message}
-                   </div>
+                   <c:if test="${not empty requestScope.message}" >
+                    <div class="flex justify-center my-6">
+                        <div class="w-[90%] md:w-2/3 lg:w-1/2 bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-lg shadow-md flex items-start gap-3">
+                          <svg class="w-6 h-6 text-red-500 mt-1 shrink-0" fill="none" stroke="currentColor" stroke-width="2"
+                               viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 9v2m0 4h.01M12 5C7.58 5 4 8.58 4 13s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8z"/>
+                          </svg>
+                          <div class="text-sm">
+                            <strong class="block font-semibold">Σφάλμα!</strong>
+                            <span>${requestScope.message}</span>
+                          </div>
+                        </div>
+                    </div>
+                   </c:if>
                     <c:if test="${requestScope.teacher != null}">
                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-base text-gray-800">
                      <div class="flex flex-col">
