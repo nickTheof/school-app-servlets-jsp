@@ -51,4 +51,9 @@
     <filter-name>AdminFilter</filter-name>
     <url-pattern>/school-app/teachers/insert</url-pattern>
   </filter-mapping>
+
+  <error-page>
+    <error-code>404</error-code>
+    <location>/error-handler</location>
+  </error-page>
 </web-app>
