@@ -1,4 +1,4 @@
-package gr.aueb.cf.schoolapp.dto;
+package gr.aueb.cf.schoolapp.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,7 +12,13 @@ import java.io.IOException;
 public class TeacherInsertedController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/jsp/teacher-inserted.jsp").forward(req, resp);
-        req.getSession().removeAttribute("teacherInfo");
+        if (req.getSession().getAttribute("teacherInfo") != null) {
+            req.getRequestDispatcher("/WEB-INF/jsp/teacher-inserted.jsp").forward(req, resp);
+            req.getSession().removeAttribute("teacherInfo");
+            return;
+        } else {
+            resp.sendRedirect(req.getContextPath() + "/school-app/dashboard");
+        }
+
     }
 }

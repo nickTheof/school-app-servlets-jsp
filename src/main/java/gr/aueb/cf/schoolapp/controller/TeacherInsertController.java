@@ -42,7 +42,7 @@ public class TeacherInsertController extends HttpServlet {
             cities = cityService.getAllCities();
         } catch (CityDaoException e) {
             req.getSession().setAttribute("message", e.getMessage());
-            req.getRequestDispatcher(req.getContextPath() + "/school-app/teachers/insert");
+            req.getRequestDispatcher(req.getContextPath() + "/school-app/teachers/insert").forward(req, resp);
         }
         req.setAttribute("cities", cities);
 
