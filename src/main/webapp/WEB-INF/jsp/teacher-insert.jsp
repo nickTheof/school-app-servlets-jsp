@@ -45,7 +45,7 @@
       </aside>
       <main class="w-full lg:w-4/5 bg-[#ECEBEC]">
         <div class="text-center text-black text-2xl my-[30px]">
-          Στοιχεία Καθηγητή
+          Στοιχεία Εκπαιδευτή
         </div>
         <c:if test="${not empty sessionScope.message}">
           <div class="flex justify-center my-6">

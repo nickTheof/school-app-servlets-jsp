@@ -8,12 +8,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/school-app/teachers/teacher-inserted")
-public class TeacherInsertedController extends HttpServlet {
+@WebServlet("/school-app/teachers/teacher-updated")
+public class TeacherUpdatedController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getSession().getAttribute("teacherInfo") != null) {
-            req.getRequestDispatcher("/WEB-INF/jsp/teacher-inserted.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/jsp/teacher-updated.jsp").forward(req, resp);
             req.getSession().removeAttribute("teacherInfo");
         } else {
             resp.sendRedirect(req.getContextPath() + "/school-app/dashboard");
