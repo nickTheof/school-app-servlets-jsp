@@ -33,8 +33,6 @@ public class TeacherDeleteController extends HttpServlet {
                 Long id = Long.parseLong(idParam.trim());
                 teacherService.deleteTeacher(id);
                 req.setAttribute("id", id);
-                req.getRequestDispatcher("/WEB-INF/jsp/teacher-deleted.jsp").forward(req, resp);
-                return;
             } catch (NumberFormatException e) {
                 message = "Το ID πρέπει να είναι έγκυρος ακέραιος αριθμός.";
             } catch (TeacherNotFoundException e) {
@@ -43,7 +41,9 @@ public class TeacherDeleteController extends HttpServlet {
                 message = "Σφάλμα κατά την ανάκτηση των στοιχείων του εκπαιδευτή.";
             }
         }
-        req.setAttribute("error", message);
+        if (message != null) {
+            req.setAttribute("error", message);
+        }
         req.getRequestDispatcher("/WEB-INF/jsp/teacher-deleted.jsp").forward(req, resp);
     }
 }
