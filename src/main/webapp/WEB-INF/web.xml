@@ -51,6 +51,18 @@
     <filter-name>AdminFilter</filter-name>
     <url-pattern>/school-app/teachers/insert</url-pattern>
   </filter-mapping>
+  <filter-mapping>
+    <filter-name>AdminFilter</filter-name>
+    <url-pattern>/school-app/students/update</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>AdminFilter</filter-name>
+    <url-pattern>/school-app/students/delete</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>AdminFilter</filter-name>
+    <url-pattern>/school-app/students/insert</url-pattern>
+  </filter-mapping>
 
   <error-page>
     <error-code>404</error-code>
