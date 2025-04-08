@@ -27,12 +27,16 @@
               Μητρώο Εκπαιδευτών
               <ul class="ps-3 text-base">
                 <li>
-                    <a class="hover:text-yellow-400 block" href="${pageContext.request.contextPath}/school-app/teachers/view">
-                        Προβολή Εκπαιδευτών
-                    </a>
+                  <a class="hover:text-yellow-400 block" href="${pageContext.request.contextPath}/school-app/teachers/view">
+                    Προβολή Εκπαιδευτών
+                  </a>
                 </li>
                 <c:if test="${sessionScope.role == 'ADMIN'}">
-                  <li class="text-yellow-400">Εισαγωγή Εκπαιδευτή</li>
+                  <li>
+                    <a class="hover:text-yellow-400 block" href="${pageContext.request.contextPath}/school-app/teachers/insert">
+                      Εισαγωγή Εκπαιδευτή
+                    </a>
+                  </li>
                 </c:if>
               </ul>
             </li>
@@ -43,9 +47,7 @@
                   <a class="hover:text-yellow-400 block" href="${pageContext.request.contextPath}/school-app/students/view">Προβολή Μαθητών</a>
                 </li>
                 <c:if test="${sessionScope.role == 'ADMIN'}">
-                  <li>
-                    <a class="hover:text-yellow-400 block" href="${pageContext.request.contextPath}/school-app/students/insert">Εισαγωγή Μαθητή</a>
-                  </li>
+                  <li class="text-yellow-400">Εισαγωγή Μαθητή</li>
                 </c:if>
               </ul>
             </li>
@@ -54,7 +56,7 @@
       </aside>
       <main class="w-full lg:w-4/5 bg-[#ECEBEC]">
         <div class="text-center text-black text-2xl my-[30px]">
-          Στοιχεία Εκπαιδευτή
+          Στοιχεία Μαθητή
         </div>
         <c:if test="${not empty requestScope.message}">
           <div class="flex justify-center my-6">
@@ -70,7 +72,7 @@
             </div>
           </div>
         </c:if>
-        <form method="POST" action="${pageContext.request.contextPath}/school-app/teachers/insert">
+        <form method="POST" action="${pageContext.request.contextPath}/school-app/students/insert">
           <div class="p-1 flex flex-wrap justify-center items-center gap-x-1 gap-y-3">
             <div class="w-4/5 mx-auto lg:w-2/5 lg:mx-0 border h-16">
               <div class="flex flex-row items-center justify-center lg:justify-start gap-x-3">

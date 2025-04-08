@@ -2,18 +2,16 @@ package gr.aueb.cf.schoolapp.controller;
 
 import gr.aueb.cf.schoolapp.dao.CityDAOImpl;
 import gr.aueb.cf.schoolapp.dao.ICityDAO;
-import gr.aueb.cf.schoolapp.dao.ITeacherDAO;
-import gr.aueb.cf.schoolapp.dao.TeacherDAOImpl;
-import gr.aueb.cf.schoolapp.dto.TeacherInsertDTO;
-import gr.aueb.cf.schoolapp.dto.TeacherReadOnlyDTO;
-import gr.aueb.cf.schoolapp.exceptions.CityDaoException;
-import gr.aueb.cf.schoolapp.exceptions.TeacherAlreadyExistsException;
-import gr.aueb.cf.schoolapp.exceptions.TeacherDaoException;
+import gr.aueb.cf.schoolapp.dao.IStudentDAO;
+import gr.aueb.cf.schoolapp.dao.StudentDAOImpl;
+import gr.aueb.cf.schoolapp.dto.StudentInsertDTO;
+import gr.aueb.cf.schoolapp.dto.StudentReadOnlyDTO;
+import gr.aueb.cf.schoolapp.exceptions.*;
 import gr.aueb.cf.schoolapp.model.City;
 import gr.aueb.cf.schoolapp.service.CityServiceImpl;
 import gr.aueb.cf.schoolapp.service.ICityService;
-import gr.aueb.cf.schoolapp.service.ITeacherService;
-import gr.aueb.cf.schoolapp.service.TeacherServiceImpl;
+import gr.aueb.cf.schoolapp.service.IStudentService;
+import gr.aueb.cf.schoolapp.service.StudentServiceImpl;
 import gr.aueb.cf.schoolapp.validator.PersonValidator;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -26,10 +24,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/school-app/teachers/insert")
-public class TeacherInsertController extends HttpServlet {
-    private final ITeacherDAO teacherDAO = new TeacherDAOImpl();
-    private final ITeacherService teacherService = new TeacherServiceImpl(teacherDAO);
+@WebServlet("/school-app/students/insert")
+public class StudentInsertController extends HttpServlet {
+    private final IStudentDAO studentDAO = new StudentDAOImpl();
+    private final IStudentService studentService = new StudentServiceImpl(studentDAO);
     private final ICityDAO cityDAO = new CityDAOImpl();
     private final ICityService cityService = new CityServiceImpl(cityDAO);
 
@@ -41,7 +39,7 @@ public class TeacherInsertController extends HttpServlet {
             cities = cityService.getAllCities();
         } catch (CityDaoException e) {
             req.setAttribute("message", e.getMessage());
-            req.getRequestDispatcher(req.getContextPath() + "/school-app/teachers/insert").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/jsp/students.jsp").forward(req, resp);
         }
         req.setAttribute("cities", cities);
 
@@ -68,12 +66,12 @@ public class TeacherInsertController extends HttpServlet {
             req.getSession().removeAttribute("streetNumError");
             req.getSession().removeAttribute("zipcodeError");
         }
-        req.getRequestDispatcher("/WEB-INF/jsp/teacher-insert.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/student-insert.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        TeacherInsertDTO insertDTO;
+        StudentInsertDTO insertDTO;
         Map<String, String> errors;
         String firstnameError;
         String lastnameError;
@@ -97,7 +95,7 @@ public class TeacherInsertController extends HttpServlet {
         String streetNum = (req.getParameter("streetNum") != null) ? req.getParameter("streetNum").trim() : "";
         String zipcode = (req.getParameter("zipcode") != null) ? req.getParameter("zipcode").trim() : "";
         Integer cityId = (req.getParameter("cityId") != null) ? Integer.parseInt(req.getParameter("cityId").trim()) : 0;
-        insertDTO = new TeacherInsertDTO(firstname, lastname, vat, fatherName, phoneNum,
+        insertDTO = new StudentInsertDTO(firstname, lastname, vat, fatherName, phoneNum,
                 email, street, streetNum, cityId, zipcode);
 
 
@@ -126,22 +124,22 @@ public class TeacherInsertController extends HttpServlet {
                 req.getSession().setAttribute("streetNumError", streetNumError);
                 req.getSession().setAttribute("zipcodeError", zipcodeError);
                 req.getSession().setAttribute("insertDTO", insertDTO);
-                resp.sendRedirect(req.getContextPath() + "/school-app/teachers/insert");
+                resp.sendRedirect(req.getContextPath() + "/school-app/students/insert");
                 return;
             }
 
             // Call the service
 
-            TeacherReadOnlyDTO readOnlyDTO = teacherService.insertTeacher(insertDTO);
+            StudentReadOnlyDTO readOnlyDTO = studentService.insertStudent(insertDTO);
             HttpSession session = req.getSession(false);
-            session.setAttribute("teacherInfo", readOnlyDTO);
+            session.setAttribute("studentInfo", readOnlyDTO);
             // PRG Pattern
-            resp.sendRedirect(req.getContextPath() + "/school-app/teachers/teacher-inserted");
+            resp.sendRedirect(req.getContextPath() + "/school-app/students/student-inserted");
 
-        } catch (TeacherDaoException | TeacherAlreadyExistsException e) {
+        } catch (StudentDaoException | StudentAlreadyExistsException e) {
             message = e.getMessage();
             req.setAttribute("message", message);
-            req.getRequestDispatcher("/WEB-INF/jsp/teacher-insert.jsp")
+            req.getRequestDispatcher("/WEB-INF/jsp/student-insert.jsp")
                     .forward(req, resp);
         }
     }
