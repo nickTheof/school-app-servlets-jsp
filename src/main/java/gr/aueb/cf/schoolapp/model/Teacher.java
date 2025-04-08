@@ -1,29 +1,15 @@
 package gr.aueb.cf.schoolapp.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import java.time.LocalDateTime;
 
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-public class Teacher {
-    private Long id;
-    private String firstname;
-    private String lastname;
-    private String vat;
-    private String fatherName;
-    private String phoneNum;
-    private String email;
-    private String street;
-    private String streetNum;
-    private Integer cityId;
-    private String zipcode;
-    private String uuid;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+public class Teacher extends Person{
+    public Teacher() {
+    }
+
+    public Teacher(Long id, String firstname, String lastname, String vat, String fatherName, String phoneNum, String email, String street, String streetNum, Integer cityId, String zipcode, String uuid, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        super(id, firstname, lastname, vat, fatherName, phoneNum, email, street, streetNum, cityId, zipcode, uuid, createdAt, updatedAt);
+    }
+
+
 }
