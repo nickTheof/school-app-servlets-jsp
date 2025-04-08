@@ -49,6 +49,19 @@
                 </c:if>
               </ul>
             </li>
+            <li class="text-white">
+              Μητρώο Μαθητών
+              <ul class="ps-3 text-base">
+                <li>
+                  <a class="hover:text-yellow-400 block" href="${pageContext.request.contextPath}/school-app/students/view">Προβολή Μαθητών</a>
+                </li>
+                <c:if test="${sessionScope.role == 'ADMIN'}">
+                  <li>
+                    <a class="hover:text-yellow-400 block" href="${pageContext.request.contextPath}/school-app/students/insert">Εισαγωγή Μαθητή</a>
+                  </li>
+                </c:if>
+              </ul>
+            </li>
           </ul>
         </nav>
       </aside>
