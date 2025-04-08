@@ -33,14 +33,14 @@ public class StudentsViewController extends HttpServlet {
             List<StudentReadOnlyDTO> filteredStudents = studentService.getFilteredStudents(filtersDTO);
             if (filteredStudents.isEmpty()) {
                 req.setAttribute("message", "Δεν υπάρχουν μαθητές με τα εν λόγω κριτήρια.");
-                req.getRequestDispatcher("/WEB-INF/jsp/students").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/jsp/students.jsp").forward(req, resp);
                 return;
             }
             req.setAttribute("students", filteredStudents);
-            req.getRequestDispatcher("/WEB-INF/jsp/students").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/jsp/students.jsp").forward(req, resp);
         } catch (StudentDaoException e) {
             req.setAttribute("message", e.getMessage());
-            req.getRequestDispatcher("/WEB-INF/jsp/students").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/jsp/students.jsp").forward(req, resp);
         }
     }
 }
