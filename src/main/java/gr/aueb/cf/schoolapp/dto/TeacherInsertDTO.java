@@ -1,6 +1,6 @@
 package gr.aueb.cf.schoolapp.dto;
 
-public class TeacherInsertDTO extends BaseTeacherDTO {
+public class TeacherInsertDTO extends BasePersonDTO {
     public TeacherInsertDTO() {
 
     }

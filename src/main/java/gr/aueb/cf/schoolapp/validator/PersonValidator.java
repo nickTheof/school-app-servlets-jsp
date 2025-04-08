@@ -1,16 +1,16 @@
 package gr.aueb.cf.schoolapp.validator;
 
-import gr.aueb.cf.schoolapp.dto.BaseTeacherDTO;
+import gr.aueb.cf.schoolapp.dto.BasePersonDTO;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class TeacherValidator {
-    private TeacherValidator() {
+public class PersonValidator {
+    private PersonValidator() {
 
     }
 
-    public static <T extends BaseTeacherDTO> Map<String, String> validate(T dto) {
+    public static <T extends BasePersonDTO> Map<String, String> validate(T dto) {
         Map<String, String> errors = new HashMap<>();
 
         String nameRegex = "^[A-Za-zΑ-Ωα-ωΆ-Ώά-ώ]+$";

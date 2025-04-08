@@ -5,11 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-public abstract class BaseTeacherDTO {
+public abstract class BasePersonDTO {
     private String firstname;
     private String lastname;
     private String vat;

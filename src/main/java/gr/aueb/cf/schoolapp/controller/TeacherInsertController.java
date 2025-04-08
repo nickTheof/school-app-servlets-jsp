@@ -10,12 +10,11 @@ import gr.aueb.cf.schoolapp.exceptions.CityDaoException;
 import gr.aueb.cf.schoolapp.exceptions.TeacherAlreadyExistsException;
 import gr.aueb.cf.schoolapp.exceptions.TeacherDaoException;
 import gr.aueb.cf.schoolapp.model.City;
-import gr.aueb.cf.schoolapp.model.Teacher;
 import gr.aueb.cf.schoolapp.service.CityServiceImpl;
 import gr.aueb.cf.schoolapp.service.ICityService;
 import gr.aueb.cf.schoolapp.service.ITeacherService;
 import gr.aueb.cf.schoolapp.service.TeacherServiceImpl;
-import gr.aueb.cf.schoolapp.validator.TeacherValidator;
+import gr.aueb.cf.schoolapp.validator.PersonValidator;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -104,7 +103,7 @@ public class TeacherInsertController extends HttpServlet {
 
         try {
             // Validate dto
-            errors = TeacherValidator.validate(insertDTO);
+            errors = PersonValidator.validate(insertDTO);
 
             if (!errors.isEmpty()) {
                 firstnameError = errors.getOrDefault("firstname", "");

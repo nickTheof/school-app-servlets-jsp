@@ -4,7 +4,6 @@ import gr.aueb.cf.schoolapp.dao.CityDAOImpl;
 import gr.aueb.cf.schoolapp.dao.ICityDAO;
 import gr.aueb.cf.schoolapp.dao.ITeacherDAO;
 import gr.aueb.cf.schoolapp.dao.TeacherDAOImpl;
-import gr.aueb.cf.schoolapp.dto.TeacherInsertDTO;
 import gr.aueb.cf.schoolapp.dto.TeacherReadOnlyDTO;
 import gr.aueb.cf.schoolapp.dto.TeacherUpdateDTO;
 import gr.aueb.cf.schoolapp.exceptions.CityDaoException;
@@ -16,7 +15,7 @@ import gr.aueb.cf.schoolapp.service.CityServiceImpl;
 import gr.aueb.cf.schoolapp.service.ICityService;
 import gr.aueb.cf.schoolapp.service.ITeacherService;
 import gr.aueb.cf.schoolapp.service.TeacherServiceImpl;
-import gr.aueb.cf.schoolapp.validator.TeacherValidator;
+import gr.aueb.cf.schoolapp.validator.PersonValidator;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -117,7 +116,7 @@ public class TeacherUpdateController extends HttpServlet {
 
         try {
             // Validate dto
-            errors = TeacherValidator.validate(updateDTO);
+            errors = PersonValidator.validate(updateDTO);
 
             if (!errors.isEmpty()) {
                 firstnameError = errors.getOrDefault("firstname", "");
