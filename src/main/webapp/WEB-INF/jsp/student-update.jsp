@@ -10,7 +10,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Coding Factory - Εισαγωγή Καθηγητή</title>
+    <title>Coding Factory - Ενημέρωση Στοιχείων Μαθητή</title>
   </head>
   <body>
     <%@ include file="/WEB-INF/jsp/header.jsp" %>
@@ -47,7 +47,9 @@
                   <a class="hover:text-yellow-400 block" href="${pageContext.request.contextPath}/school-app/students/view">Προβολή Μαθητών</a>
                 </li>
                 <c:if test="${sessionScope.role == 'ADMIN'}">
-                  <li class="text-yellow-400">Εισαγωγή Μαθητή</li>
+                  <li>
+                    <a class="hover:text-yellow-400 block" href="${pageContext.request.contextPath}/school-app/students/insert">Εισαγωγή Μαθητή</a>
+                  </li>
                 </c:if>
               </ul>
             </li>
@@ -56,9 +58,9 @@
       </aside>
       <main class="w-full lg:w-4/5">
         <div class="text-center text-black font-thin text-2xl my-[30px]">
-          Στοιχεία Μαθητή
+          Ενημέρωση Στοιχείων Μαθητή
         </div>
-        <c:if test="${not empty requestScope.message}">
+        <c:if test="${not empty sessionScope.message}">
           <div class="flex justify-center my-6">
             <div class="w-[90%] md:w-2/3 lg:w-1/2 bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-lg shadow-md flex items-start gap-3">
               <svg class="w-6 h-6 text-red-500 mt-1 shrink-0" fill="none" stroke="currentColor" stroke-width="2"
@@ -67,12 +69,13 @@
               </svg>
               <div class="text-sm">
                 <strong class="block font-semibold">Σφάλμα!</strong>
-                <span>${requestScope.message}</span>
+                <span>${sessionScope.message}</span>
               </div>
             </div>
           </div>
         </c:if>
-        <form method="POST" action="${pageContext.request.contextPath}/school-app/students/insert">
+        <form method="POST" action="${pageContext.request.contextPath}/school-app/students/update?id=${param.id}">
+          <input type="hidden" name="id" value="${param.id}">
           <div class="p-1 flex flex-wrap justify-center items-center gap-x-1 gap-y-3">
             <div class="w-4/5 mx-auto lg:w-2/5 lg:mx-0 h-16">
               <div class="flex flex-row items-center justify-center lg:justify-start gap-x-3">
@@ -80,7 +83,7 @@
                 <input
                   id="firstname"
                   name="firstname"
-                  value="${requestScope.insertDTOInfo.firstname}"
+                  value="${requestScope.updateDTOInfo.firstname}"
                   type="text"
                   class="h-10 border border-black w-[300px] p-2 shadow-xl focus:outline-none focus:ring-2 focus:ring-inset-2"
                   required
@@ -97,7 +100,7 @@
                 <input
                   id="lastname"
                   name="lastname"
-                  value="${requestScope.insertDTOInfo.lastname}"
+                  value="${requestScope.updateDTOInfo.lastname}"
                   type="text"
                   class="w-[300px] h-10 border border-black p-2 shadow-xl focus:outline-none focus:ring-2 focus:ring-inset-2"
                   required
@@ -114,7 +117,7 @@
                 <input
                   id="vat"
                   name="vat"
-                  value="${requestScope.insertDTOInfo.vat}"
+                  value="${requestScope.updateDTOInfo.vat}"
                   type="text"
                   class="w-[300px] h-10 border border-black p-2 shadow-xl focus:outline-none focus:ring-2 focus:ring-inset-2"
                   required
@@ -131,7 +134,7 @@
                 <input
                   id="fatherName"
                   name="fatherName"
-                  value="${requestScope.insertDTOInfo.fatherName}"
+                  value="${requestScope.updateDTOInfo.fatherName}"
                   type="text"
                   class="h-10 border border-black p-2 shadow-xl focus:outline-none focus:ring-2 focus:ring-inset-2 w-[300px]"
                   required
@@ -148,7 +151,7 @@
                 <input
                   id="phoneNumber"
                   name="phoneNum"
-                  value="${requestScope.insertDTOInfo.phoneNum}"
+                  value="${requestScope.updateDTOInfo.phoneNum}"
                   type="text"
                   class="w-[300px] h-10 border border-black p-2 shadow-xl focus:outline-none focus:ring-2 focus:ring-inset-2"
                   required
@@ -165,7 +168,7 @@
                 <input
                   id="email"
                   name="email"
-                  value="${requestScope.insertDTOInfo.email}"
+                  value="${requestScope.updateDTOInfo.email}"
                   type="email"
                   class="w-[300px] h-10 border border-black p-2 shadow-xl focus:outline-none focus:ring-2 focus:ring-inset-2"
                   required
@@ -182,7 +185,7 @@
                 <input
                   id="street"
                   name="street"
-                  value="${requestScope.insertDTOInfo.street}"
+                  value="${requestScope.updateDTOInfo.street}"
                   type="text"
                   class="w-[300px] h-10 border border-black p-2 shadow-xl focus:outline-none focus:ring-2 focus:ring-inset-2"
                   required
@@ -199,7 +202,7 @@
                 <input
                   id="streetNum"
                   name="streetNum"
-                  value="${requestScope.insertDTOInfo.streetNum}"
+                  value="${requestScope.updateDTOInfo.streetNum}"
                   type="text"
                   class="w-[300px] h-10 border border-black p-2 shadow-xl focus:outline-none focus:ring-2 focus:ring-inset-2"
                   required
@@ -219,11 +222,11 @@
                   class="bg-white w-[300px] h-10 border border-black p-2 shadow-xl focus:outline-none focus:ring-2 focus:ring-inset-2"
                   required
                 >
-                  <option value="" disabled ${empty requestScope.insertDTOInfo.cityId ? 'selected' : ''}>
+                  <option value="" disabled ${empty requestScope.updateDTOInfo.cityId ? 'selected' : ''}>
                     Επιλέξτε Πόλη
                   </option>
                   <c:forEach var="city" items="${requestScope.cities}">
-                    <option value="${city.id}" ${city.id eq requestScope.insertDTOInfo.cityId ? 'selected' : ''}>
+                    <option value="${city.id}" ${city.id eq requestScope.updateDTOInfo.cityId ? 'selected' : ''}>
                       ${city.name}
                     </option>
                   </c:forEach>
@@ -240,7 +243,7 @@
                 <input
                   id="zipcode"
                   name="zipcode"
-                  value="${requestScope.insertDTOInfo.zipcode}"
+                  value="${requestScope.updateDTOInfo.zipcode}"
                   type="text"
                   class="w-[300px] h-10 border border-black p-2 shadow-xl focus:outline-none focus:ring-2 focus:ring-inset-2"
                   required

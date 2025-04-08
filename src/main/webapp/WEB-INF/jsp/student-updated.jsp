@@ -10,7 +10,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Coding Factory</title>
+    <title>Coding Factory - Επιτυχής Ενημέρωση</title>
   </head>
   <body>
     <%@ include file="/WEB-INF/jsp/header.jsp" %>
@@ -23,7 +23,6 @@
                 Αρχική
               </a>
             </li>
-            <c:if test="${sessionScope.authenticated == true}">
             <li class="text-white">
               Μητρώο Εκπαιδευτών
               <ul class="ps-3 text-base">
@@ -54,11 +53,32 @@
                 </c:if>
               </ul>
             </li>
-            </c:if>
           </ul>
         </nav>
       </aside>
       <main class="w-full lg:w-4/5">
+        <div class="text-center text-black font-thin text-2xl my-[30px]">
+          Ενημέρωση Στοιχείων Μαθητή
+        </div>
+        <c:if test="${ not empty sessionScope.studentInfo}">
+          <div class="bg-green-100 border border-green-400 text-green-900 rounded-lg shadow-md max-w-xl w-full p-6 space-y-4 mx-auto">
+            <div class="flex items-center justify-center space-x-3">
+              <span class="text-2xl text-green-600">
+                <i class="fa-solid fa-circle-check"></i>
+              </span>
+              <h2 class="text-xl md:text-2xl font-serif font-medium text-center">
+                Επιτυχής Ενημέρωση Στοιχείων Μαθητή
+              </h2>
+            </div>
+            <p class="text-center text-base md:text-lg">
+              Τα ενημερωμένα στοιχεία του Μαθητή καταχωρήθηκαν επιτυχώς.
+            </p>
+            <p class="text-center text-base md:text-lg">UUID: ${sessionScope.studentInfo.uuid}</p>
+            <p class="text-center text-base md:text-lg">Επώνυμο: ${sessionScope.studentInfo.lastname}</p>
+            <p class="text-center text-base md:text-lg">Όνομα: ${sessionScope.studentInfo.firstname}</p>
+          </div>
+        </c:if>
+        <c:if test="${empty sessionScope.studentInfo}">
           <div class="flex justify-center my-6">
             <div class="w-[90%] md:w-2/3 lg:w-1/2 bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-lg shadow-md flex items-center justify-center gap-3">
               <svg class="w-6 h-6 text-red-500 mt-1 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
@@ -66,13 +86,13 @@
               </svg>
               <div class="text-lg">
                 <strong class="block font-semibold">Σφάλμα!</strong>
-                <span>Η σελίδα που αναζητάτε δεν βρέθηκε.</span>
               </div>
             </div>
           </div>
+        </c:if>
         <div class="text-center my-3 text-[#762124] hover:text-[#5c1a1a]">
-          <a class="hover:underline" href="${pageContext.request.contextPath}/school-app/dashboard">
-            Επιστροφή στην κεντρική σελίδα
+          <a class="hover:underline" href="${pageContext.request.contextPath}/school-app/students/view">
+            Επιστροφή στην Προβολή Μαθητών
           </a>
         </div>
       </main>

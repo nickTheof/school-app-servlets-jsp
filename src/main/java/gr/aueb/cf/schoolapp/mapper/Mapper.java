@@ -43,7 +43,7 @@ public class Mapper {
     }
 
     public static Student mapStudentUpdateDTOToModel(StudentUpdateDTO dto) {
-        return new Student(null, dto.getFirstname(), dto.getLastname(), dto.getVat(), dto.getFatherName(), dto.getPhoneNum(),
+        return new Student(dto.getId(), dto.getFirstname(), dto.getLastname(), dto.getVat(), dto.getFatherName(), dto.getPhoneNum(),
                 dto.getEmail(), dto.getStreet(), dto.getStreetNum(), dto.getCityId(), dto.getZipcode(), null, null, null);
     }
 
