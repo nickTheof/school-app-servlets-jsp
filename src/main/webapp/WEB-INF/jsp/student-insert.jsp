@@ -54,8 +54,8 @@
           </ul>
         </nav>
       </aside>
-      <main class="w-full lg:w-4/5 bg-[#ECEBEC]">
-        <div class="text-center text-black text-2xl my-[30px]">
+      <main class="w-full lg:w-4/5">
+        <div class="text-center text-black font-thin text-2xl my-[30px]">
           Στοιχεία Μαθητή
         </div>
         <c:if test="${not empty requestScope.message}">
@@ -91,7 +91,7 @@
               </div>
             </div>
 
-            <div class="w-4/5 mx-auto lg:w-2/5 lg:mx-0 border h-16">
+            <div class="w-4/5 mx-auto lg:w-2/5 lg:mx-0 h-16">
               <div class="flex flex-row items-center justify-center lg:justify-start gap-x-3">
                 <label for="lastname" class="font-bold text-sm w-[140px]">Επώνυμο *</label>
                 <input
@@ -108,7 +108,7 @@
               </div>
             </div>
 
-            <div class="w-4/5 mx-auto lg:w-2/5 lg:mx-0 border h-16">
+            <div class="w-4/5 mx-auto lg:w-2/5 lg:mx-0 h-16">
               <div class="flex flex-row items-center justify-center lg:justify-start gap-x-3">
                 <label for="vat" class="font-bold text-sm w-[140px]">ΑΦΜ *</label>
                 <input
@@ -125,7 +125,7 @@
               </div>
             </div>
 
-            <div class="w-4/5 mx-auto lg:w-2/5 lg:mx-0 border h-16">
+            <div class="w-4/5 mx-auto lg:w-2/5 lg:mx-0 h-16">
               <div class="flex flex-row items-center justify-center lg:justify-start gap-x-3">
                 <label for="fatherName" class="font-bold text-sm w-[140px]">Πατρώνυμο *</label>
                 <input
@@ -142,7 +142,7 @@
               </div>
             </div>
 
-            <div class="w-4/5 mx-auto lg:w-2/5 lg:mx-0 border h-16">
+            <div class="w-4/5 mx-auto lg:w-2/5 lg:mx-0 h-16">
               <div class="flex flex-row items-center justify-center lg:justify-start gap-x-3">
                 <label for="phoneNumber" class="font-bold text-sm w-[140px]">Τηλέφωνο *</label>
                 <input
@@ -159,7 +159,7 @@
               </div>
             </div>
 
-            <div class="w-4/5 mx-auto lg:w-2/5 lg:mx-0 border h-16">
+            <div class="w-4/5 mx-auto lg:w-2/5 lg:mx-0 h-16">
               <div class="flex flex-row items-center justify-center lg:justify-start gap-x-3">
                 <label for="email" class="w-[140px] font-bold text-sm">Email *</label>
                 <input
@@ -176,7 +176,7 @@
               </div>
             </div>
 
-            <div class="w-4/5 mx-auto lg:w-2/5 lg:mx-0 border h-16">
+            <div class="w-4/5 mx-auto lg:w-2/5 lg:mx-0 h-16">
               <div class="flex flex-row items-center justify-center lg:justify-start gap-x-3">
                 <label for="address" class="w-[140px] font-bold text-sm">Διεύθυνση *</label>
                 <input
@@ -193,7 +193,7 @@
               </div>
             </div>
 
-            <div class="w-4/5 mx-auto lg:w-2/5 lg:mx-0 border h-16">
+            <div class="w-4/5 mx-auto lg:w-2/5 lg:mx-0 h-16">
               <div class="flex flex-row items-center justify-center lg:justify-start gap-x-3">
                 <label for="streetNum" class="w-[140px] font-bold text-sm">Αριθμός *</label>
                 <input
@@ -210,13 +210,13 @@
               </div>
             </div>
 
-            <div class="w-4/5 mx-auto lg:w-2/5 lg:mx-0 border h-16">
+            <div class="w-4/5 mx-auto lg:w-2/5 lg:mx-0 h-16">
               <div class="flex flex-row items-center justify-center lg:justify-start gap-x-3">
                 <label for="city" class="w-[140px] font-bold text-sm">Πόλη *</label>
                 <select
                   id="city"
                   name="cityId"
-                  class="w-[300px] h-10 border border-black p-2 shadow-xl focus:outline-none focus:ring-2 focus:ring-inset-2"
+                  class="bg-white w-[300px] h-10 border border-black p-2 shadow-xl focus:outline-none focus:ring-2 focus:ring-inset-2"
                   required
                 >
                   <option value="" disabled ${empty requestScope.insertDTOInfo.cityId ? 'selected' : ''}>
@@ -234,7 +234,7 @@
               </div>
             </div>
 
-            <div class="w-4/5 mx-auto lg:w-2/5 lg:mx-0 border h-16">
+            <div class="w-4/5 mx-auto lg:w-2/5 lg:mx-0 h-16">
               <div class="flex flex-row items-center justify-center lg:justify-start gap-x-3">
                 <label for="zipcode" class="w-[140px] font-bold text-sm">ΤΚ *</label>
                 <input
