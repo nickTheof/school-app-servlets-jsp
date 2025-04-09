@@ -2,7 +2,6 @@ package gr.aueb.cf.schoolapp.controller;
 
 import gr.aueb.cf.schoolapp.dao.ITeacherDAO;
 import gr.aueb.cf.schoolapp.dao.TeacherDAOImpl;
-import gr.aueb.cf.schoolapp.dto.TeacherReadOnlyDTO;
 import gr.aueb.cf.schoolapp.exceptions.TeacherDaoException;
 import gr.aueb.cf.schoolapp.exceptions.TeacherNotFoundException;
 import gr.aueb.cf.schoolapp.service.ITeacherService;

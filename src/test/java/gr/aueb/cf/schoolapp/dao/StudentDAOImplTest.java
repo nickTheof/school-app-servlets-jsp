@@ -2,14 +2,11 @@ package gr.aueb.cf.schoolapp.dao;
 
 import gr.aueb.cf.schoolapp.dao.util.DBHelper;
 import gr.aueb.cf.schoolapp.exceptions.StudentDaoException;
-import gr.aueb.cf.schoolapp.exceptions.TeacherDaoException;
 import gr.aueb.cf.schoolapp.model.Student;
-import gr.aueb.cf.schoolapp.model.Teacher;
 import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
