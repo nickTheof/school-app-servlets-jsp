@@ -9,8 +9,10 @@ public class DBUtil {
     private static final BasicDataSource ds = new BasicDataSource();
     private static Connection connection;
 
+
     static {
         ds.setUrl("jdbc:mysql://localhost:3306/schooldb7staging?serverTimeZone=UTC");
+        ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
         ds.setUsername("user7");
         ds.setPassword(System.getenv("PASSWD_USER7"));
         ds.setInitialSize(10);
