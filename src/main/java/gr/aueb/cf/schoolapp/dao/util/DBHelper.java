@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Set;
 
 public class DBHelper {
-    private static final Set<String> allowed_tables = Set.of("teachers", "students", "cities");
+    private static final Set<String> allowed_tables = Set.of("teachers", "students", "cities", "users");
 
     private DBHelper() {
 
