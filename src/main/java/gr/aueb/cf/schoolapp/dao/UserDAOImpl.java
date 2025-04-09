@@ -83,7 +83,6 @@ public class UserDAOImpl implements IUserDAO {
             }
             return SecUtil.isPasswordValid(password, user.getPassword());
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new UserDaoException("SQL Error. Error in checking validity of user with username " + username);
 
         }
