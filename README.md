@@ -16,6 +16,51 @@ The project is built with:
 For styling, it utilizes **Tailwind CSS**, following a **responsive mobile-first design**.
 
 ---
+## 🔐 Authorization & Roles
+
+The **School Management App** implements a role-based authorization system with two distinct user roles:
+
+### 1. **Admin Role**
+- **Permissions**:
+    - Full access to all resources and functionalities in the application.
+    - Can **Add**, **Update**, **Delete**, and **View** records for both **Teachers** and **Students**.
+
+  **Use Cases**:
+    - **Managing Teachers**: Admin can add new teachers, update their details, and remove teachers from the system.
+    - **Managing Students**: Admin can add new students, edit their details, and delete students from the system.
+    - **Viewing Reports**: Admin has unrestricted access to view any data related to teachers and students.
+
+### 2. **Light_Admin Role**
+- **Permissions**:
+    - Restricted to **View Only** permissions for both **Teachers** and **Students**.
+    - Cannot **Add**, **Update**, or **Delete** records; only the view action is allowed for both entities.
+
+  **Use Cases**:
+    - **Viewing Teacher Data**: Light Admin can view the list of all teachers, their details, and courses.
+    - **Viewing Student Data**: Light Admin can view the list of all students, their details, and assignments.
+
+---
+
+### **Authentication Flow**
+1. **Login Process**:
+    - Users are prompted to log in via the **Session-based Login System**.
+    - The login process validates user credentials and checks the associated role.
+    - Depending on the role, the user is granted access to appropriate pages and features within the application.
+
+2. **Role-Based Access Control**:
+    - After successful login, users are directed to a dashboard.
+    - **Admins** have full access to all resources, while **Light Admins** are limited to viewing functionality only.
+
+3. **Session Management**:
+    - Sessions are stored on the server, ensuring that access is granted or restricted based on user role throughout the session lifecycle.
+
+---
+
+### **Security & Data Protection**
+- **Password Hashing**: All passwords are securely hashed using `BCrypt` to protect sensitive data.
+- **Access Control**: Role-based access ensures that only authorized users can perform specific actions in the system.
+
+---
 
 ## ✅ Features
 
@@ -46,31 +91,31 @@ For styling, it utilizes **Tailwind CSS**, following a **responsive mobile-first
 
 ## 📁 Project Structure
 
-src/
-├── main/
-│ ├── java/
-├── authentication/ # Authentication related classes
-├── controller/ # MVC controllers
-├── core/ # Core application components
-├── dao/ # Data Access Objects (database layer)
-├── dto/ # Data Transfer Objects
-├── exceptions/ # Custom exception classes
-├── filter/ # Servlet filters
-├── mapper/ # Object mapping/transformation
-├── model/ # Domain models/entities
-├── security/ # Security configuration
-├── service/ # Business logic services
-├── util/ # Utility/helper classes
-└── validator/ # Validation logic
-webapp/
-├── img/ # Image assets
-├── js/ # JavaScript files
-├── WEB-INF/ # Protected resources
-│ ├── jsp/ # JSP view files
-│ └── web.xml # Deployment descriptor
-└── index.jsp # Application entry point
-├── pom.xml # Maven build file
-└── README.md # Project documentation
+- `src/`
+    - `main/`
+        - `java/`
+            - `authentication/`        # Authentication related classes
+            - `controller/`            # MVC controllers
+            - `core/`                  # Core application components
+            - `dao/`                   # Data Access Objects (database layer)
+            - `dto/`                   # Data Transfer Objects
+            - `exceptions/`            # Custom exception classes
+            - `filter/`                # Servlet filters
+            - `mapper/`                # Object mapping/transformation
+            - `model/`                 # Domain models/entities
+            - `security/`              # Security configuration
+            - `service/`               # Business logic services
+            - `util/`                  # Utility/helper classes
+            - `validator/`             # Validation logic
+        - `webapp/`
+            - `img/`                   # Image assets
+            - `js/`                    # JavaScript files
+            - `WEB-INF/`               # Protected resources
+                - `jsp/                   # JSP view files
+                - `web.xml                # Deployment descriptor
+            - `index.jsp`              # Application entry point
+- `pom.xml`                        # Maven build file
+- `README.md`                      # Project documentation
 
 ## **Installation & Deployment**
 
@@ -129,3 +174,15 @@ webapp/
    ```
 
 ## 📸 **Screenshots**
+![Home page](git-docs-images/entrypoint.png)
+![Login page](git-docs-images/login.png)
+![Register page](git-docs-images/register.png)
+![Dashboard](git-docs-images/dashboard.png)
+![Teachers Page](git-docs-images/teachers-view.png)
+![Teacher Details](git-docs-images/teacher-details.png)
+![Teacher Insert](git-docs-images/insert-teacher.png)
+![Teacher Update](git-docs-images/update-teacher.png)
+![Teacher Successful Update](git-docs-images/teacher-updated.png)
+![Teacher Confirmation Delete](git-docs-images/confirm-delete.png)
+![Teacher Successful Delete](git-docs-images/teacher-deleted.png)
+
