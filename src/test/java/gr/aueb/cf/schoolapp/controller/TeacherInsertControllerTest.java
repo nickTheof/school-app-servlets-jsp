@@ -16,7 +16,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 
 import java.io.IOException;
@@ -27,13 +31,17 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.Mockito.*;
 
-
+@ExtendWith(MockitoExtension.class)
 class TeacherInsertControllerTest {
 
     private static TeacherInsertController controller;
+    @Mock
     private HttpServletRequest req;
+    @Mock
     private HttpServletResponse resp;
+    @Mock
     private HttpSession session;
+    @Mock
     private RequestDispatcher requestDispatcher;
 
     @BeforeAll
@@ -45,15 +53,6 @@ class TeacherInsertControllerTest {
     @BeforeEach
     public void setup() throws TeacherDaoException {
         DBCreateDummyData.createTeachersDummyData();
-        // Mocks
-        req = mock(HttpServletRequest.class);
-        resp = mock(HttpServletResponse.class);
-        session = mock(HttpSession.class);
-        requestDispatcher = mock(RequestDispatcher.class);
-        when(req.getSession()).thenReturn(session);
-        when(req.getSession(anyBoolean())).thenReturn(session);
-        when(req.getContextPath()).thenReturn("");
-        when(req.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
     }
 
     @AfterEach
@@ -78,6 +77,8 @@ class TeacherInsertControllerTest {
         when(req.getParameter("streetNum")).thenReturn("11");
         when(req.getParameter("zipcode")).thenReturn("12345");
         when(req.getParameter("cityId")).thenReturn("1");
+        when(req.getSession(false)).thenReturn(session);
+        when(req.getContextPath()).thenReturn("");
 
         controller.doPost(req, resp);
         verify(resp).sendRedirect(eq("/school-app/teachers/teacher-inserted"));
@@ -95,10 +96,13 @@ class TeacherInsertControllerTest {
         when(req.getParameter("streetNum")).thenReturn("11");
         when(req.getParameter("zipcode")).thenReturn("12345");
         when(req.getParameter("cityId")).thenReturn("1");
+        when(req.getSession(false)).thenReturn(session);
 
         controller.doPost(req, resp);
 
         ArgumentCaptor<TeacherReadOnlyDTO> dtoCaptor = ArgumentCaptor.forClass(TeacherReadOnlyDTO.class);
+
+
 
         verify(session).setAttribute(eq("teacherInfo"), dtoCaptor.capture());
 
@@ -128,6 +132,7 @@ class TeacherInsertControllerTest {
         when(req.getParameter("streetNum")).thenReturn(" 11 ");
         when(req.getParameter("zipcode")).thenReturn(" 12345 ");
         when(req.getParameter("cityId")).thenReturn(" 1 ");
+        when(req.getSession(false)).thenReturn(session);
 
         controller.doPost(req, resp);
 
@@ -164,12 +169,15 @@ class TeacherInsertControllerTest {
         when(req.getParameter("zipcode")).thenReturn("12345");
         when(req.getParameter("cityId")).thenReturn("1");
 
+        when(req.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
         controller.doPost(req, resp);
 
         verify(req).setAttribute(
                 eq("message"),
                 eq("Teacher with vat 987654321 already exists")
         );
+
 
         verify(req).getRequestDispatcher("/WEB-INF/jsp/teacher-insert.jsp");
         verify(requestDispatcher).forward(req, resp);
@@ -188,6 +196,8 @@ class TeacherInsertControllerTest {
         when(req.getParameter("zipcode")).thenReturn(null);
         when(req.getParameter("cityId")).thenReturn(null);
 
+        when(req.getSession()).thenReturn(session);
+        when(req.getContextPath()).thenReturn("");
         controller.doPost(req, resp);
 
         verify(resp).sendRedirect("/school-app/teachers/insert");
@@ -205,6 +215,8 @@ class TeacherInsertControllerTest {
 
     @Test
     void doGet_shouldSetCitiesAndForwardToInsertJSP() throws ServletException, IOException {
+        when(req.getSession()).thenReturn(session);
+        when(req.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
         controller.doGet(req, resp);
         verify(req).setAttribute(eq("cities"), any());
         verify(req).getRequestDispatcher("/WEB-INF/jsp/teacher-insert.jsp");
@@ -216,6 +228,8 @@ class TeacherInsertControllerTest {
         when(session.getAttribute("insertDTO")).thenReturn("dummyDTO");
         when(session.getAttribute("firstnameError")).thenReturn("Some error");
 
+        when(req.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+        when(req.getSession()).thenReturn(session);
         controller.doGet(req, resp);
 
         verify(req).setAttribute("insertDTOInfo", "dummyDTO");
@@ -236,7 +250,8 @@ class TeacherInsertControllerTest {
         TeacherInsertController controllerWithMockCity = new TeacherInsertController(realTeacherService, mockCityService);
 
         when(mockCityService.getAllCities()).thenThrow(new CityDaoException("DB Error"));
-
+        when(req.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+        when(req.getContextPath()).thenReturn("");
         controllerWithMockCity.doGet(req, resp);
 
         verify(req).setAttribute(eq("message"), eq("DB Error"));
