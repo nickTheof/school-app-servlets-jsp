@@ -1,5 +1,6 @@
 package gr.aueb.cf.schoolapp.dao;
 
+import gr.aueb.cf.schoolapp.dao.util.DBCreateDummyData;
 import gr.aueb.cf.schoolapp.dao.util.DBHelper;
 import gr.aueb.cf.schoolapp.exceptions.CityDaoException;
 import gr.aueb.cf.schoolapp.model.City;
@@ -21,7 +22,7 @@ class CityDAOImplTest {
 
     @BeforeEach
     public void setup() throws CityDaoException {
-        createDummyData();
+        DBCreateDummyData.createCityDummyData();
     }
 
     @AfterEach
@@ -31,7 +32,7 @@ class CityDAOImplTest {
 
     @AfterAll
     public static void tearAll() throws CityDaoException {
-        createDummyData();
+        DBCreateDummyData.createCityDummyData();
     }
 
     @Test
@@ -64,34 +65,6 @@ class CityDAOImplTest {
     void getAllCities() throws CityDaoException {
         List<City> cities = cityDAO.getAll();
         assertEquals(11, cities.size());
-    }
-
-
-
-    private static void createDummyData() throws CityDaoException {
-
-        City city1 = new City(null, "Αθήνα");
-        City city2 = new City(null, "Πάτρα");
-        City city3 = new City(null, "Βόλος");
-        City city4 = new City(null, "Λάρισσα");
-        City city5 = new City(null, "Θεσσαλονίκη");
-        City city6 = new City(null, "Κέρκυρα");
-        City city7 = new City(null, "Δράμα");
-        City city8 = new City(null, "Πύργος");
-        City city9 = new City(null, "Καλάματα");
-        City city10 = new City(null, "Ηράκλειο");
-        City city11 = new City(null, "Χανιά");
-        cityDAO.insert(city1);
-        cityDAO.insert(city2);
-        cityDAO.insert(city3);
-        cityDAO.insert(city4);
-        cityDAO.insert(city5);
-        cityDAO.insert(city6);
-        cityDAO.insert(city7);
-        cityDAO.insert(city8);
-        cityDAO.insert(city9);
-        cityDAO.insert(city10);
-        cityDAO.insert(city11);
     }
 
 }

@@ -1,7 +1,7 @@
 package gr.aueb.cf.schoolapp.service;
 
-import gr.aueb.cf.schoolapp.core.RoleType;
 import gr.aueb.cf.schoolapp.dao.*;
+import gr.aueb.cf.schoolapp.dao.util.DBCreateDummyData;
 import gr.aueb.cf.schoolapp.dao.util.DBHelper;
 import gr.aueb.cf.schoolapp.dto.InsertUserDTO;
 import gr.aueb.cf.schoolapp.dto.LoginUserDTO;
@@ -9,11 +9,9 @@ import gr.aueb.cf.schoolapp.dto.UserReadOnlyDTO;
 import gr.aueb.cf.schoolapp.exceptions.UserAlreadyExistsException;
 import gr.aueb.cf.schoolapp.exceptions.UserDaoException;
 import gr.aueb.cf.schoolapp.exceptions.UserNotFoundException;
-import gr.aueb.cf.schoolapp.model.User;
 import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,7 +28,7 @@ class UserServiceImplTest {
 
     @BeforeEach
     public void setup() throws UserDaoException {
-        createDummyData();
+        DBCreateDummyData.createUsersDummyData();
     }
 
     @AfterEach
@@ -40,22 +38,8 @@ class UserServiceImplTest {
 
     @AfterAll
     public static void tearAll() throws UserDaoException {
-        createDummyData();
+        DBCreateDummyData.createUsersDummyData();
     }
-
-    private static void createDummyData() throws UserDaoException {
-        List<User> users = List.of(
-            new User(1L, "thanos@aueb.gr", "12345", RoleType.ADMIN),
-            new User(2L, "anna@gmail.com", "12345", RoleType.LIGHT_ADMIN),
-            new User(3L, "niki@aueb.gr", "12345", RoleType.ADMIN),
-            new User(4L, "test@aueb.gr", "12345", RoleType.ADMIN),
-            new User(5L, "test2@aueb.gr", "12345", RoleType.LIGHT_ADMIN)
-        );
-        for (User user: users) {
-            userDAO.insert(user);
-        }
-    }
-
 
     @Test
     void insertUser() throws UserDaoException, UserAlreadyExistsException, UserNotFoundException {
