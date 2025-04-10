@@ -28,10 +28,20 @@ import java.util.Map;
 
 @WebServlet("/school-app/teachers/insert")
 public class TeacherInsertController extends HttpServlet {
-    private final ITeacherDAO teacherDAO = new TeacherDAOImpl();
-    private final ITeacherService teacherService = new TeacherServiceImpl(teacherDAO);
-    private final ICityDAO cityDAO = new CityDAOImpl();
-    private final ICityService cityService = new CityServiceImpl(cityDAO);
+    private  ITeacherDAO teacherDAO = new TeacherDAOImpl();
+    private  ITeacherService teacherService = new TeacherServiceImpl(teacherDAO);
+    private  ICityDAO cityDAO = new CityDAOImpl();
+    private  ICityService cityService = new CityServiceImpl(cityDAO);
+
+    public TeacherInsertController() {
+
+    }
+
+    // Dependency Injection Via Constructor injection - useful for mocking services in tests
+    public TeacherInsertController(ITeacherService teacherService, ICityService cityService) {
+        this.teacherService = teacherService;
+        this.cityService = cityService;
+    }
 
 
     @Override
@@ -42,6 +52,7 @@ public class TeacherInsertController extends HttpServlet {
         } catch (CityDaoException e) {
             req.setAttribute("message", e.getMessage());
             req.getRequestDispatcher(req.getContextPath() + "/school-app/teachers/insert").forward(req, resp);
+            return;
         }
         req.setAttribute("cities", cities);
 
