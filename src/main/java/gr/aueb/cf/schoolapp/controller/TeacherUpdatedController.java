@@ -18,6 +18,5 @@ public class TeacherUpdatedController extends HttpServlet {
         } else {
             resp.sendRedirect(req.getContextPath() + "/school-app/dashboard");
         }
-
     }
 }

@@ -16,8 +16,17 @@ import java.io.IOException;
 
 @WebServlet("/school-app/students/delete")
 public class StudentDeleteController extends HttpServlet {
-    private final IStudentDAO studentDAO = new StudentDAOImpl();
-    private final IStudentService studentService = new StudentServiceImpl(studentDAO);
+    private final IStudentService studentService;
+
+    public StudentDeleteController() {
+        IStudentDAO studentDAO = new StudentDAOImpl();
+        studentService = new StudentServiceImpl(studentDAO);
+    }
+
+    // Dependency Injection Via Constructor injection - useful for mocking services in tests
+    public StudentDeleteController(IStudentService studentService) {
+        this.studentService = studentService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

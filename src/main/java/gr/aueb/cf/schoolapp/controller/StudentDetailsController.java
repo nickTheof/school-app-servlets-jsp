@@ -22,10 +22,22 @@ import java.util.List;
 
 @WebServlet("/school-app/students/view/student")
 public class StudentDetailsController extends HttpServlet {
-    private final ICityDAO cityDAO = new CityDAOImpl();
-    private final ICityService cityService = new CityServiceImpl(cityDAO);
-    private final IStudentDAO studentDAO = new StudentDAOImpl();
-    private final IStudentService studentService = new StudentServiceImpl(studentDAO);
+
+    private final ICityService cityService;
+    private final IStudentService studentService;
+
+    public StudentDetailsController() {
+        ICityDAO cityDAO = new CityDAOImpl();
+        IStudentDAO studentDAO = new StudentDAOImpl();
+        cityService = new CityServiceImpl(cityDAO);
+        studentService = new StudentServiceImpl(studentDAO);
+    }
+
+    // Dependency Injection Via Constructor injection - useful for mocking services in tests
+    public StudentDetailsController(IStudentService studentService, ICityService cityService) {
+        this.studentService = studentService;
+        this.cityService = cityService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -23,8 +23,18 @@ import java.util.Map;
 @WebServlet("/register")
 public class RegisterUserController extends HttpServlet {
 
-    private final IUserDAO userDAO = new UserDAOImpl();
-    private final IUserService userService = new UserServiceImpl(userDAO);
+
+    private final IUserService userService;
+
+    public RegisterUserController() {
+        IUserDAO userDAO = new UserDAOImpl();
+        userService = new UserServiceImpl(userDAO);
+    }
+
+    // Dependency Injection Via Constructor injection - useful for mocking services in tests
+    public RegisterUserController(IUserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

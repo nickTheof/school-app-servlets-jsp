@@ -26,11 +26,22 @@ import java.util.Map;
 
 @WebServlet("/school-app/students/insert")
 public class StudentInsertController extends HttpServlet {
-    private final IStudentDAO studentDAO = new StudentDAOImpl();
-    private final IStudentService studentService = new StudentServiceImpl(studentDAO);
-    private final ICityDAO cityDAO = new CityDAOImpl();
-    private final ICityService cityService = new CityServiceImpl(cityDAO);
 
+    private final ICityService cityService;
+    private final IStudentService studentService;
+
+    public StudentInsertController() {
+        ICityDAO cityDAO = new CityDAOImpl();
+        IStudentDAO studentDAO = new StudentDAOImpl();
+        cityService = new CityServiceImpl(cityDAO);
+        studentService = new StudentServiceImpl(studentDAO);
+    }
+
+    // Dependency Injection Via Constructor injection - useful for mocking services in tests
+    public StudentInsertController(IStudentService studentService, ICityService cityService) {
+        this.studentService = studentService;
+        this.cityService = cityService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

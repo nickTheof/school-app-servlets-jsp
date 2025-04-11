@@ -19,9 +19,17 @@ import java.util.List;
 @WebServlet("/school-app/teachers/view")
 public class TeachersViewController extends HttpServlet {
 
-    private final ITeacherDAO teacherDAO = new TeacherDAOImpl();
-    private final ITeacherService teacherService = new TeacherServiceImpl(teacherDAO);
+    private final ITeacherService teacherService;
 
+    public TeachersViewController() {
+        ITeacherDAO teacherDAO = new TeacherDAOImpl();
+        teacherService = new TeacherServiceImpl(teacherDAO);
+    }
+
+    // Dependency Injection Via Constructor injection - useful for mocking services in tests
+    public TeachersViewController(ITeacherService teacherService) {
+        this.teacherService = teacherService;
+    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<TeacherReadOnlyDTO> teacherReadOnlyDTOS;

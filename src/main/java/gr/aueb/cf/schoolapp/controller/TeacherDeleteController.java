@@ -17,14 +17,14 @@ import java.io.IOException;
 @WebServlet("/school-app/teachers/delete")
 public class TeacherDeleteController extends HttpServlet {
 
-    private ITeacherDAO teacherDAO;
-    private ITeacherService teacherService;
+    private final ITeacherService teacherService;
 
     public TeacherDeleteController() {
-        teacherDAO = new TeacherDAOImpl();
+        ITeacherDAO teacherDAO = new TeacherDAOImpl();
         teacherService = new TeacherServiceImpl(teacherDAO);
     }
 
+    // Dependency Injection Via Constructor injection - useful for mocking services in tests
     public TeacherDeleteController(ITeacherService teacherService) {
         this.teacherService = teacherService;
     }

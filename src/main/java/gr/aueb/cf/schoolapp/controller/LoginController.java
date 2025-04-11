@@ -19,11 +19,11 @@ import java.io.IOException;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
-    private IUserDAO userDao = new UserDAOImpl();
-    private IUserService userService = new UserServiceImpl(userDao);
+    private final IUserService userService;
 
     public LoginController() {
-
+        IUserDAO userDao = new UserDAOImpl();
+        userService = new UserServiceImpl(userDao);
     }
 
     public LoginController(IUserService userService) {

@@ -28,13 +28,14 @@ import java.util.Map;
 
 @WebServlet("/school-app/teachers/insert")
 public class TeacherInsertController extends HttpServlet {
-    private  ITeacherDAO teacherDAO = new TeacherDAOImpl();
-    private  ITeacherService teacherService = new TeacherServiceImpl(teacherDAO);
-    private  ICityDAO cityDAO = new CityDAOImpl();
-    private  ICityService cityService = new CityServiceImpl(cityDAO);
+    private final ITeacherService teacherService;
+    private final ICityService cityService;
 
     public TeacherInsertController() {
-
+        ITeacherDAO teacherDAO = new TeacherDAOImpl();
+        teacherService = new TeacherServiceImpl(teacherDAO);
+        ICityDAO cityDAO = new CityDAOImpl();
+        cityService = new CityServiceImpl(cityDAO);
     }
 
     // Dependency Injection Via Constructor injection - useful for mocking services in tests
