@@ -17,8 +17,18 @@ import java.io.IOException;
 @WebServlet("/school-app/teachers/delete")
 public class TeacherDeleteController extends HttpServlet {
 
-    private final ITeacherDAO teacherDAO = new TeacherDAOImpl();
-    private final ITeacherService teacherService = new TeacherServiceImpl(teacherDAO);
+    private ITeacherDAO teacherDAO;
+    private ITeacherService teacherService;
+
+    public TeacherDeleteController() {
+        teacherDAO = new TeacherDAOImpl();
+        teacherService = new TeacherServiceImpl(teacherDAO);
+    }
+
+    public TeacherDeleteController(ITeacherService teacherService) {
+        this.teacherService = teacherService;
+    }
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -45,4 +55,7 @@ public class TeacherDeleteController extends HttpServlet {
         }
         req.getRequestDispatcher("/WEB-INF/jsp/teacher-deleted.jsp").forward(req, resp);
     }
+
+
+
 }
