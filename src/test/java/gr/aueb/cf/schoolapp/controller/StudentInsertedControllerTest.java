@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -42,9 +43,10 @@ class StudentInsertedControllerTest {
     void doGetInsertedStudentExistsWillForward() throws ServletException, IOException {
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("studentInfo")).thenReturn(new StudentReadOnlyDTO());
-        when(request.getRequestDispatcher("/WEB-INF/jsp/student-inserted.jsp")).thenReturn(requestDispatcher);
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
         when(request.getSession()).thenReturn(session);
         controller.doGet(request, response);
+        verify(request).getRequestDispatcher("/WEB-INF/jsp/student-inserted.jsp");
         verify(requestDispatcher).forward(request, response);
         verify(request.getSession()).removeAttribute("studentInfo");
     }

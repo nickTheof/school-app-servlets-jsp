@@ -4,6 +4,7 @@ import gr.aueb.cf.schoolapp.authentication.AuthenticationProvider;
 import gr.aueb.cf.schoolapp.dao.IUserDAO;
 import gr.aueb.cf.schoolapp.dao.UserDAOImpl;
 import gr.aueb.cf.schoolapp.dto.LoginUserDTO;
+import gr.aueb.cf.schoolapp.dto.UserReadOnlyDTO;
 import gr.aueb.cf.schoolapp.exceptions.UserDaoException;
 import gr.aueb.cf.schoolapp.exceptions.UserNotFoundException;
 import gr.aueb.cf.schoolapp.service.IUserService;
@@ -35,6 +36,7 @@ public class LoginController extends HttpServlet {
         req.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(req, resp);
     }
 
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int ADMIN_TIME_OUT = 30 * 60;
@@ -61,9 +63,17 @@ public class LoginController extends HttpServlet {
             HttpSession session = req.getSession(true);
             session.setAttribute("authenticated", true);
             session.setAttribute("username", username);
-            session.setAttribute("role", userService.getUserByUsername(username).getRole());
 
-            if (session.getAttribute("role").equals("ADMIN")) {
+            UserReadOnlyDTO user = userService.getUserByUsername(username);
+            if (user == null) {
+                req.setAttribute("error", "User with username " + username + " was not found");
+                req.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(req, resp);
+                return;
+            }
+
+            session.setAttribute("role", user.getRole());
+
+            if ("ADMIN".equals(user.getRole())) {
                 session.setMaxInactiveInterval(ADMIN_TIME_OUT);
             }
 

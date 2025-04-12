@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -36,8 +37,9 @@ class RegisteredUserControllerTest {
 
     @Test
     void doGetWillForward() throws ServletException, IOException {
-        when(request.getRequestDispatcher("/WEB-INF/jsp/registered-user.jsp")).thenReturn(requestDispatcher);
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
         controller.doGet(request, response);
+        verify(request).getRequestDispatcher("/WEB-INF/jsp/registered-user.jsp");
         verify(requestDispatcher).forward(request, response);
     }
 

@@ -4,7 +4,6 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -36,8 +36,9 @@ class DashboardControllerTest {
 
     @Test
     void doGetWillForward() throws ServletException, IOException {
-        when(request.getRequestDispatcher("/WEB-INF/jsp/dashboard.jsp")).thenReturn(requestDispatcher);
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
         controller.doGet(request, response);
+        verify(request).getRequestDispatcher("/WEB-INF/jsp/dashboard.jsp");
         verify(requestDispatcher).forward(request, response);
     }
 }

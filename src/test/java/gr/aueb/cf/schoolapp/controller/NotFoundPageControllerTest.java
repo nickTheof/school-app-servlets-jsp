@@ -46,6 +46,7 @@ class NotFoundPageControllerTest {
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
         controller.doGet(request, response);
+        verify(request).getRequestDispatcher("/WEB-INF/jsp/not-found-page.jsp");
         verify(requestDispatcher).forward(request, response);
     }
 
