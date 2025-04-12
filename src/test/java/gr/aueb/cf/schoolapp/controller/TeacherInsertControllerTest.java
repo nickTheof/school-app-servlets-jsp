@@ -55,7 +55,6 @@ class TeacherInsertControllerTest {
         assertNotNull(defaultController);
     }
 
-
     @Test
     void insertTeacherWhenValidDataShouldRedirect() throws ServletException, IOException, TeacherDaoException, TeacherAlreadyExistsException {
         TeacherReadOnlyDTO mockTeacherReadOnlyDTO = new TeacherReadOnlyDTO(1L,"c3b9d8e4-72fd-4d9f-bf32-1bde576f38aa", "testName", "testSurname", "999999999", "testFatherName", "6912345678", "test@example.com", "Main", "11", 1, "12345");

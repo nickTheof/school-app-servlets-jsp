@@ -107,24 +107,22 @@ public class TeacherUpdateController extends HttpServlet {
         String zipcodeError;
         String message;
 
-        // Data binding
-        String idStr = (req.getParameter("id") != null) ? req.getParameter("id").trim() : "";
-        Long id = Long.parseLong(idStr);
-        String firstname = (req.getParameter("firstname") != null) ? req.getParameter("firstname").trim() : "";
-        String lastname = (req.getParameter("lastname") != null) ? req.getParameter("lastname").trim() : "";
-        String vat = (req.getParameter("vat") != null) ? req.getParameter("vat").trim() : "";
-        String fatherName = (req.getParameter("fatherName") != null) ? req.getParameter("fatherName").trim() : "";
-        String phoneNum = (req.getParameter("phoneNum") != null) ? req.getParameter("phoneNum").trim() : "";
-        String email = (req.getParameter("email") != null) ? req.getParameter("email").trim() : "";
-        String street = (req.getParameter("street") != null) ? req.getParameter("street").trim() : "";
-        String streetNum = (req.getParameter("streetNum") != null) ? req.getParameter("streetNum").trim() : "";
-        String zipcode = (req.getParameter("zipcode") != null) ? req.getParameter("zipcode").trim() : "";
-        Integer cityId = (req.getParameter("cityId") != null) ? Integer.parseInt(req.getParameter("cityId").trim()) : 0;
-        updateDTO = new TeacherUpdateDTO(id, firstname, lastname, vat, fatherName, phoneNum,
-                email, street, streetNum, cityId, zipcode);
-
-
         try {
+            // Data binding
+            String idStr = (req.getParameter("id") != null) ? req.getParameter("id").trim() : "";
+            Long id = Long.parseLong(idStr);
+            String firstname = (req.getParameter("firstname") != null) ? req.getParameter("firstname").trim() : "";
+            String lastname = (req.getParameter("lastname") != null) ? req.getParameter("lastname").trim() : "";
+            String vat = (req.getParameter("vat") != null) ? req.getParameter("vat").trim() : "";
+            String fatherName = (req.getParameter("fatherName") != null) ? req.getParameter("fatherName").trim() : "";
+            String phoneNum = (req.getParameter("phoneNum") != null) ? req.getParameter("phoneNum").trim() : "";
+            String email = (req.getParameter("email") != null) ? req.getParameter("email").trim() : "";
+            String street = (req.getParameter("street") != null) ? req.getParameter("street").trim() : "";
+            String streetNum = (req.getParameter("streetNum") != null) ? req.getParameter("streetNum").trim() : "";
+            String zipcode = (req.getParameter("zipcode") != null) ? req.getParameter("zipcode").trim() : "";
+            Integer cityId = (req.getParameter("cityId") != null) ? Integer.parseInt(req.getParameter("cityId").trim()) : 0;
+            updateDTO = new TeacherUpdateDTO(id, firstname, lastname, vat, fatherName, phoneNum,
+                    email, street, streetNum, cityId, zipcode);
             // Validate dto
             errors = PersonValidator.validate(updateDTO);
 
@@ -168,4 +166,5 @@ public class TeacherUpdateController extends HttpServlet {
                     .forward(req, resp);
         }
     }
+
 }
