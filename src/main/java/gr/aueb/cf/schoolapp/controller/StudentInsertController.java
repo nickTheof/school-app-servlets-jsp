@@ -51,6 +51,7 @@ public class StudentInsertController extends HttpServlet {
         } catch (CityDaoException e) {
             req.setAttribute("message", e.getMessage());
             req.getRequestDispatcher("/WEB-INF/jsp/students.jsp").forward(req, resp);
+            return;
         }
         req.setAttribute("cities", cities);
 

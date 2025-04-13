@@ -1,13 +1,11 @@
 package gr.aueb.cf.schoolapp.controller;
 
+import gr.aueb.cf.schoolapp.dto.StudentReadOnlyDTO;
 import gr.aueb.cf.schoolapp.dto.TeacherReadOnlyDTO;
-import gr.aueb.cf.schoolapp.exceptions.CityDaoException;
-import gr.aueb.cf.schoolapp.exceptions.TeacherAlreadyExistsException;
-import gr.aueb.cf.schoolapp.exceptions.TeacherDaoException;
-import gr.aueb.cf.schoolapp.exceptions.TeacherNotFoundException;
+import gr.aueb.cf.schoolapp.exceptions.*;
 import gr.aueb.cf.schoolapp.model.City;
 import gr.aueb.cf.schoolapp.service.ICityService;
-import gr.aueb.cf.schoolapp.service.ITeacherService;
+import gr.aueb.cf.schoolapp.service.IStudentService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,10 +21,15 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class TeacherUpdateControllerTest {
+class StudentUpdateControllerTest {
     @Mock
     private HttpServletRequest request;
     @Mock
@@ -36,15 +39,15 @@ class TeacherUpdateControllerTest {
     @Mock
     private RequestDispatcher requestDispatcher;
     @Mock
-    private ITeacherService mockTeacherService;
+    private IStudentService mockStudentService;
     @Mock
     private ICityService mockCityService;
     @InjectMocks
-    private TeacherUpdateController controller;
+    private StudentUpdateController controller;
 
     @Test
     void defaultConstructorShouldInstantiateService() {
-        TeacherUpdateController defaultController = new TeacherUpdateController();
+        StudentUpdateController defaultController = new StudentUpdateController();
         assertNotNull(defaultController);
     }
 
@@ -57,39 +60,39 @@ class TeacherUpdateControllerTest {
         controller.doGet(request, response);
         verify(request, times(0)).setAttribute(eq("cities"), any());
         verify(session).setAttribute(eq("message"), eq("DB error"));
-        verify(request).getRequestDispatcher("/WEB-INF/jsp/teacher-update.jsp");
+        verify(request).getRequestDispatcher("/WEB-INF/jsp/student-update.jsp");
         verify(requestDispatcher).forward(request, response);
         verify(session).removeAttribute("message");
     }
 
     @Test
-    void doGetTeacherServiceFailsSetErrorWillForward() throws CityDaoException, ServletException, IOException, TeacherNotFoundException, TeacherDaoException {
+    void doGetStudentServiceFailsSetErrorWillForward() throws CityDaoException, ServletException, IOException, StudentNotFoundException, StudentDaoException {
         List<City> mockedCities = List.of(new City(1, "Αθήνα"));
         when(mockCityService.getAllCities()).thenReturn(mockedCities);
         when(request.getParameter("id")).thenReturn("1");
-        when(mockTeacherService.getTeacherById(1L)).thenThrow(new TeacherDaoException("DB error"));
+        when(mockStudentService.getStudentById(1L)).thenThrow(new StudentDaoException("DB error"));
         when(request.getSession()).thenReturn(session);
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
         controller.doGet(request, response);
         verify(request).setAttribute(eq("cities"), eq(mockedCities));
         verify(session).setAttribute(eq("message"), eq("DB error"));
-        verify(request).getRequestDispatcher("/WEB-INF/jsp/teacher-update.jsp");
+        verify(request).getRequestDispatcher("/WEB-INF/jsp/student-update.jsp");
         verify(requestDispatcher).forward(request, response);
         verify(session).removeAttribute("message");
     }
 
     @Test
-    void doGetTeacherServiceFailsTeacherNotFoundSetErrorWillForward() throws CityDaoException, ServletException, IOException, TeacherNotFoundException, TeacherDaoException {
+    void doGetStudentServiceFailsTeacherNotFoundSetErrorWillForward() throws CityDaoException, ServletException, IOException, StudentNotFoundException, StudentDaoException {
         List<City> mockedCities = List.of(new City(1, "Αθήνα"));
         when(mockCityService.getAllCities()).thenReturn(mockedCities);
         when(request.getParameter("id")).thenReturn("1");
-        when(mockTeacherService.getTeacherById(1L)).thenThrow(new TeacherNotFoundException("Teacher not found"));
+        when(mockStudentService.getStudentById(1L)).thenThrow(new StudentNotFoundException("Student not found"));
         when(request.getSession()).thenReturn(session);
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
         controller.doGet(request, response);
         verify(request).setAttribute(eq("cities"), eq(mockedCities));
-        verify(session).setAttribute(eq("message"), eq("Teacher not found"));
-        verify(request).getRequestDispatcher("/WEB-INF/jsp/teacher-update.jsp");
+        verify(session).setAttribute(eq("message"), eq("Student not found"));
+        verify(request).getRequestDispatcher("/WEB-INF/jsp/student-update.jsp");
         verify(requestDispatcher).forward(request, response);
         verify(session).removeAttribute("message");
     }
@@ -104,36 +107,36 @@ class TeacherUpdateControllerTest {
         controller.doGet(request, response);
         verify(request).setAttribute(eq("cities"), eq(mockedCities));
         verify(session).setAttribute(eq("message"), eq("For input string: \"error\""));
-        verify(request).getRequestDispatcher("/WEB-INF/jsp/teacher-update.jsp");
+        verify(request).getRequestDispatcher("/WEB-INF/jsp/student-update.jsp");
         verify(requestDispatcher).forward(request, response);
         verify(session).removeAttribute("message");
     }
 
     @Test
-    void doGetSuccessRenderingWithNullUpdateDTOWillForward() throws CityDaoException, ServletException, IOException, TeacherNotFoundException, TeacherDaoException {
+    void doGetSuccessRenderingWithNullUpdateDTOWillForward() throws CityDaoException, ServletException, IOException, StudentNotFoundException, StudentDaoException {
         List<City> mockedCities = List.of(new City(1, "Αθήνα"));
-        TeacherReadOnlyDTO updateDTOInfo = new TeacherReadOnlyDTO(1L,"c3b9d8e4-72fd-4d9f-bf32-1bde576f38aa", "Γεώργιος", "Παναγιώτου", "567839201", "Στέφανος", "6987654321", "george@gmail.com", "Σταδίου", "55", 2, "11223");
+        StudentReadOnlyDTO updateDTOInfo = new StudentReadOnlyDTO(1L,"c3b9d8e4-72fd-4d9f-bf32-1bde576f38aa", "Γεώργιος", "Παναγιώτου", "567839201", "Στέφανος", "6987654321", "george@gmail.com", "Σταδίου", "55", 2, "11223");
         when(mockCityService.getAllCities()).thenReturn(mockedCities);
         when(request.getParameter("id")).thenReturn("1");
-        when(mockTeacherService.getTeacherById(1L)).thenReturn(updateDTOInfo);
+        when(mockStudentService.getStudentById(1L)).thenReturn(updateDTOInfo);
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("updateDTO")).thenReturn(null);
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
         controller.doGet(request, response);
         verify(request).setAttribute(eq("cities"), eq(mockedCities));
         verify(request).setAttribute(eq("updateDTOInfo"), eq(updateDTOInfo));
-        verify(request).getRequestDispatcher("/WEB-INF/jsp/teacher-update.jsp");
+        verify(request).getRequestDispatcher("/WEB-INF/jsp/student-update.jsp");
         verify(requestDispatcher).forward(request, response);
     }
 
     @Test
-    void doGetSuccessRenderingWithNotNullUpdateDTOWillForward() throws CityDaoException, ServletException, IOException, TeacherNotFoundException, TeacherDaoException {
+    void doGetSuccessRenderingWithNotNullUpdateDTOWillForward() throws CityDaoException, ServletException, IOException, StudentNotFoundException, StudentDaoException {
         List<City> mockedCities = List.of(new City(1, "Αθήνα"));
-        TeacherReadOnlyDTO updateDTOInfo = new TeacherReadOnlyDTO(1L, "uuid", "Γεώργιος", "Παναγιώτου", "567839201", "Στέφανος", "6987654321", "george@gmail.com", "Σταδίου", "55", 2, "11223");
+        StudentReadOnlyDTO updateDTOInfo = new StudentReadOnlyDTO(1L, "uuid", "Γεώργιος", "Παναγιώτου", "567839201", "Στέφανος", "6987654321", "george@gmail.com", "Σταδίου", "55", 2, "11223");
 
         when(mockCityService.getAllCities()).thenReturn(mockedCities);
         when(request.getParameter("id")).thenReturn("1");
-        when(mockTeacherService.getTeacherById(1L)).thenReturn(updateDTOInfo);
+        when(mockStudentService.getStudentById(1L)).thenReturn(updateDTOInfo);
         when(request.getSession()).thenReturn(session);
 
         when(session.getAttribute("updateDTO")).thenReturn(updateDTOInfo);
@@ -175,7 +178,7 @@ class TeacherUpdateControllerTest {
         verify(session).removeAttribute("streetNumError");
         verify(session).removeAttribute("zipcodeError");
 
-        verify(request).getRequestDispatcher("/WEB-INF/jsp/teacher-update.jsp");
+        verify(request).getRequestDispatcher("/WEB-INF/jsp/student-update.jsp");
         verify(requestDispatcher).forward(request, response);
     }
 
@@ -201,7 +204,7 @@ class TeacherUpdateControllerTest {
         verify(session).setAttribute(eq("firstnameError"), anyString());
         verify(session).setAttribute(eq("updateDTO"), any());
 
-        verify(response).sendRedirect("/school-app/teachers/update?id=1");
+        verify(response).sendRedirect("/school-app/students/update?id=1");
     }
 
     @Test
@@ -234,11 +237,11 @@ class TeacherUpdateControllerTest {
         verify(session).setAttribute(eq("zipcodeError"), anyString());
         verify(session).setAttribute(eq("updateDTO"), any());
 
-        verify(response).sendRedirect("/school-app/teachers/update?id=1");
+        verify(response).sendRedirect("/school-app/students/update?id=1");
     }
 
     @Test
-    void doPostSuccessfulUpdateRedirectsToConfirmation() throws TeacherNotFoundException, TeacherDaoException, TeacherAlreadyExistsException, ServletException, IOException {
+    void doPostSuccessfulUpdateRedirectsToConfirmation() throws ServletException, IOException, StudentAlreadyExistsException, StudentNotFoundException, StudentDaoException {
         when(request.getParameter("id")).thenReturn("1");
         when(request.getParameter("firstname")).thenReturn("firstname");
         when(request.getParameter("lastname")).thenReturn("lastname");
@@ -254,18 +257,18 @@ class TeacherUpdateControllerTest {
 
         when(request.getSession(anyBoolean())).thenReturn(session);
 
-        TeacherReadOnlyDTO updatedTeacher = new TeacherReadOnlyDTO(1L, "uuid", "Γεώργιος", "Παναγιώτου", "567839201", "Στέφανος", "6987654321", "george@gmail.com", "Σταδίου", "55", 2, "11223");
+        StudentReadOnlyDTO updatedStudent = new StudentReadOnlyDTO(1L, "uuid", "Γεώργιος", "Παναγιώτου", "567839201", "Στέφανος", "6987654321", "george@gmail.com", "Σταδίου", "55", 2, "11223");
 
-        when(mockTeacherService.updateTeacher(eq(1L), any())).thenReturn(updatedTeacher);
+        when(mockStudentService.updateStudent(eq(1L), any())).thenReturn(updatedStudent);
 
         controller.doPost(request, response);
 
-        verify(session).setAttribute("teacherInfo", updatedTeacher);
-        verify(response).sendRedirect("/school-app/teachers/teacher-updated");
+        verify(session).setAttribute("studentInfo", updatedStudent);
+        verify(response).sendRedirect("/school-app/students/student-updated");
     }
 
     @Test
-    void doPostThrowsTeacherNotFoundExceptionForwardsToErrorPage() throws TeacherNotFoundException, TeacherDaoException, TeacherAlreadyExistsException, ServletException, IOException {
+    void doPostThrowsTeacherNotFoundExceptionForwardsToErrorPage() throws ServletException, IOException, StudentAlreadyExistsException, StudentNotFoundException, StudentDaoException {
         when(request.getParameter("id")).thenReturn("1");
         when(request.getParameter("firstname")).thenReturn("firstname");
         when(request.getParameter("lastname")).thenReturn("lastname");
@@ -281,13 +284,13 @@ class TeacherUpdateControllerTest {
         when(request.getSession()).thenReturn(session);
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
-        doThrow(new TeacherNotFoundException("Teacher not found"))
-                .when(mockTeacherService).updateTeacher(eq(1L), any());
+        doThrow(new StudentNotFoundException("Student not found"))
+                .when(mockStudentService).updateStudent(eq(1L), any());
 
         controller.doPost(request, response);
 
-        verify(session).setAttribute("message", "Teacher not found");
-        verify(request).getRequestDispatcher("/WEB-INF/jsp/teacher-update.jsp");
+        verify(session).setAttribute("message", "Student not found");
+        verify(request).getRequestDispatcher("/WEB-INF/jsp/student-update.jsp");
         verify(requestDispatcher).forward(request, response);
     }
 
@@ -301,7 +304,8 @@ class TeacherUpdateControllerTest {
         controller.doPost(request, response);
 
         verify(session).setAttribute("message", "For input string: \"\"");
-        verify(request).getRequestDispatcher("/WEB-INF/jsp/teacher-update.jsp");
+        verify(request).getRequestDispatcher("/WEB-INF/jsp/student-update.jsp");
         verify(requestDispatcher).forward(request, response);
     }
+
 }
