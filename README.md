@@ -71,13 +71,14 @@ The **School Management App** implements a role-based authorization system with 
 - ✔️ **Reusable Services and DAOs**
 - ✔️ **Mobile-Responsive UI** powered by Tailwind CSS
 - ✔️ **Secure Password Hashing** using `BCrypt`
+- ✔️ **Unit tests** using `JUnit` and `Mockito`
 
 ---
 
 ## 🛠 Tech Stack
 
 | Layer            | Technology                           |
-| ---------------- | ------------------------------------ |
+|------------------|--------------------------------------|
 | Language         | Java 17                              |
 | Web Framework    | Jakarta EE (Servlets, JSP, EL, JSTL) |
 | Frontend Styling | Tailwind CSS                         |
@@ -86,6 +87,7 @@ The **School Management App** implements a role-based authorization system with 
 | Connection Pool  | Apache Commons DBCP2                 |
 | Authentication   | BCrypt                               |
 | App Server       | Apache Tomcat                        |
+| Unit tests       | JUnit, Mockito                       |
 
 ---
 
@@ -114,6 +116,13 @@ The **School Management App** implements a role-based authorization system with 
                 - `jsp/                   # JSP view files
                 - `web.xml                # Deployment descriptor
             - `index.jsp`              # Application entry point
+    - `test/`
+        - `java/`
+            - `controller/`            # Unit tests for controllers
+            - `dao/`                   # Unit tests for DAO
+            - `filter/`                # Unit tests for Servlet filters
+            - `model/`                 # Unit tests for Domain models
+            - `service/`               # Unit tests for Service layer
 - `pom.xml`                        # Maven build file
 - `README.md`                      # Project documentation
 
